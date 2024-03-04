@@ -11,5 +11,8 @@
   "devDependencies": {
     "prettier": "3.2.5",
     "vite": "^5.1.4"
+  },
+  "dependencies": {
+    "essentia.js": "^0.1.3"
   }
 }
