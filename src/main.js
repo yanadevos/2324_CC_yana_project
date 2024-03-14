@@ -151,6 +151,9 @@ function frequencyToNote(frequency) {
 }
 
 // ScriptNodeProcessor callback function to calculate RMS using essentia.js
+let x = 0;
+let pitchArray = [];
+let lastAverage = 0;
 function essentiaExtractorCallback(audioProcessingEvent) {
   // Convert the float32 audio data into std::vector<float> for use with essentia algos
   let vectorSignal = essentia.arrayToVector(
@@ -162,16 +165,16 @@ function essentiaExtractorCallback(audioProcessingEvent) {
 
   // Perform pitch detection using Essentia
   const bufferSize = 2000;
-  const frameSize = bufferSize / 4;
-  const hopSize = frameSize / 4;
+  const frameSize = bufferSize / 2;
+  const hopSize = frameSize / 2;
   const lowestFreq = 20; // Lowered frequency to 20 Hz
-  const highestFreq = 8372.018; // Doubled frequency to set it higher
-  const sampleRate = 100;
+  const highestFreq = 18372.018; // Doubled frequency to set it higher
+  const sampleRate = 1000;
 
   const algoOutput = essentia.PitchMelodia(
     vectorSignal,
     10,
-    3,
+    10,
     frameSize,
     false,
     0.8,
@@ -179,7 +182,7 @@ function essentiaExtractorCallback(audioProcessingEvent) {
     1,
     40,
     highestFreq,
-    100,
+    500,
     lowestFreq,
     20,
     0.9,
@@ -187,7 +190,7 @@ function essentiaExtractorCallback(audioProcessingEvent) {
     27.5625,
     lowestFreq,
     sampleRate,
-    100,
+    500,
   );
   const pitchFrames = essentia.vectorToArray(algoOutput.pitch);
 
@@ -202,22 +205,33 @@ function essentiaExtractorCallback(audioProcessingEvent) {
   // Update phase of the sine wave based on mean pitch
   phase += meanPitch * frequency;
 
-  // Clear canvas
-  context.clearRect(0, 0, canvas.width, canvas.height);
-
   //Log the mean pitch and note
   console.log("Mean Pitch: " + meanPitch);
   console.log("Note: " + note);
 
-  // Draw sine wave
-  context.beginPath();
-  context.moveTo(0, yOffset);
-  for (let x = 0; x < canvas.width; x++) {
-    let y = yOffset + amplitude * Math.sin(2 * Math.PI * frequency * x + phase); //*10
-    context.lineTo(x, y);
+  // fill pitchArray to max lentgh 10 and if full remove first
+  pitchArray.push(meanPitch);
+  if (pitchArray.length === 20) {
+    pitchArray.shift();
   }
-  context.strokeStyle = "#FF0000"; // Red color
+  // calculate average of last values
+  const average = pitchArray.reduce((a, b) => a + b, 0) / pitchArray.length;
+
+  // draw white pôint on canvas
+  context.fillStyle = "white";
+  context.fillRect(x, average * 2, 1, 1);
+
+  // draw line
+  context.strokeStyle = "red";
+  context.beginPath();
+  context.moveTo(x - 1, lastAverage * 2);
+  context.lineTo(x, average * 2);
+  context.closePath();
   context.stroke();
+
+  x++;
+
+  lastAverage = average;
 }
 
 // Function to start microphone recording stream
