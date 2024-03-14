@@ -1,6 +1,7 @@
 import Essentia from "https://cdn.jsdelivr.net/npm/essentia.js@0.1.3/dist/essentia.js-core.es.js";
 // import essentia-wasm-module
 import { EssentiaWASM } from "https://cdn.jsdelivr.net/npm/essentia.js@0.1.3/dist/essentia-wasm.es.js";
+import "./styles/style.css";
 
 const essentia = new Essentia(EssentiaWASM);
 
@@ -20,12 +21,138 @@ let gumStream;
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 audioCtx = new AudioContext();
 
-let plotDiv = document.querySelector("#plotDiv"); // html div to print our results to
+let canvas = document.getElementById("pitchCanvas");
+let context = canvas.getContext("2d");
 let recordButton = document.querySelector("#recordButton");
+
+// Define global variables for the sine wave parameters
+let amplitude = 10; // Amplitude of the sine wave
+let frequency = 0.01; // Frequency of the sine wave
+let phase = 0; // Initial phase of the sine wave
+let yOffset = canvas.height / 2; // Vertical offset to position the sine wave in the middle of the canvas
+
+// Function to convert frequency to note
+function frequencyToNote(frequency) {
+  const noteFrequencies = {
+    A0: 27.5,
+    "A#0": 29.1352,
+    B0: 30.8677,
+    C1: 32.7032,
+    "C#1": 34.6478,
+    D1: 36.7081,
+    "D#1": 38.8909,
+    E1: 41.2034,
+    F1: 43.6535,
+    "F#1": 46.2493,
+    G1: 48.9994,
+    "G#1": 51.9131,
+    A1: 55,
+    "A#1": 58.2705,
+    B1: 61.7354,
+    C2: 65.4064,
+    "C#2": 69.2957,
+    D2: 73.4162,
+    "D#2": 77.7817,
+    E2: 82.4069,
+    F2: 87.3071,
+    "F#2": 92.4986,
+    G2: 97.9989,
+    "G#2": 103.826,
+    A2: 110,
+    "A#2": 116.541,
+    B2: 123.471,
+    C3: 130.813,
+    "C#3": 138.591,
+    D3: 146.832,
+    "D#3": 155.563,
+    E3: 164.814,
+    F3: 174.614,
+    "F#3": 184.997,
+    G3: 195.998,
+    "G#3": 207.652,
+    A3: 220,
+    "A#3": 233.082,
+    B3: 246.942,
+    C4: 261.626,
+    "C#4": 277.183,
+    D4: 293.665,
+    "D#4": 311.127,
+    E4: 329.628,
+    F4: 349.228,
+    "F#4": 369.994,
+    G4: 391.995,
+    "G#4": 415.305,
+    A4: 440,
+    "A#4": 466.164,
+    B4: 493.883,
+    C5: 523.251,
+    "C#5": 554.365,
+    D5: 587.33,
+    "D#5": 622.254,
+    E5: 659.255,
+    F5: 698.456,
+    "F#5": 739.989,
+    G5: 783.991,
+    "G#5": 830.609,
+    A5: 880,
+    "A#5": 932.328,
+    B5: 987.767,
+    C6: 1046.5,
+    "C#6": 1108.73,
+    D6: 1174.66,
+    "D#6": 1244.51,
+    E6: 1318.51,
+    F6: 1396.91,
+    "F#6": 1479.98,
+    G6: 1567.98,
+    "G#6": 1661.22,
+    A6: 1760,
+    "A#6": 1864.66,
+    B6: 1975.53,
+    C7: 2093,
+    "C#7": 2217.46,
+    D7: 2349.32,
+    "D#7": 2489.02,
+    E7: 2637.02,
+    F7: 2793.83,
+    "F#7": 2959.96,
+    G7: 3135.96,
+    "G#7": 3322.44,
+    A7: 3520,
+    "A#7": 3729.31,
+    B7: 3951.07,
+    C8: 4186.01,
+    "C#8": 4434.92,
+    D8: 4698.64,
+    "D#8": 4978.03,
+    E8: 5274.04,
+    F8: 5587.65,
+    "F#8": 5919.91,
+    G8: 6271.93,
+    "G#8": 6644.88,
+    A8: 7040,
+    "A#8": 7458.62,
+    B8: 7902.13,
+  };
+
+  let closestFrequency = null;
+  let minDifference = Infinity;
+
+  // Find the closest frequency in the noteFrequencies object
+  for (const noteFrequency in noteFrequencies) {
+    const difference = Math.abs(frequency - noteFrequencies[noteFrequency]);
+    if (difference < minDifference) {
+      closestFrequency = noteFrequency;
+      minDifference = difference;
+    }
+  }
+
+  return closestFrequency;
+}
 
 // ScriptNodeProcessor callback function to calculate RMS using essentia.js
 function essentiaExtractorCallback(audioProcessingEvent) {
-  // convert the float32 audio data into std::vector<float> for using with essentia algos
+  // Convert the float32 audio data into std::vector<float> for use with essentia algos
   let vectorSignal = essentia.arrayToVector(
     audioProcessingEvent.inputBuffer.getChannelData(0),
   );
@@ -33,18 +160,14 @@ function essentiaExtractorCallback(audioProcessingEvent) {
     throw "onRecordingError: empty audio signal input found!";
   }
 
-  const bufferSize = 1024; // Bijvoorbeeld, dit moet een waarde zijn die bij uw toepassing past.
-  const frameSize = bufferSize / 2;
+  // Perform pitch detection using Essentia
+  const bufferSize = 2000;
+  const frameSize = bufferSize / 4;
   const hopSize = frameSize / 4;
-  const lowestFreq = 65.40639; // frequentie van C2 in Hz
-  const highestFreq = 2093.0045; // frequentie van C7 in Hz
-  const sampleRate = 1000;
+  const lowestFreq = 20; // Lowered frequency to 20 Hz
+  const highestFreq = 8372.018; // Doubled frequency to set it higher
+  const sampleRate = 100;
 
-  // check https://mtg.github.io/essentia.js/docs/api/Essentia.html#RMS
-  let RMSalgoOutput = essentia.RMS(vectorSignal);
-  // convert the output to js arrray
-  let rmsValue = RMSalgoOutput.rms;
-  // console.log(RMSalgoOutput);
   const algoOutput = essentia.PitchMelodia(
     vectorSignal,
     10,
@@ -67,22 +190,37 @@ function essentiaExtractorCallback(audioProcessingEvent) {
     100,
   );
   const pitchFrames = essentia.vectorToArray(algoOutput.pitch);
-  const confidenceFrames = essentia.vectorToArray(algoOutput.pitchConfidence);
 
-  // average frame-wise pitches in pitch before writing to SAB
+  // Calculate mean pitch
   const numVoicedFrames = pitchFrames.filter((p) => p > 0).length;
-  // const numFrames = pitchFrames.length;
   const meanPitch =
     pitchFrames.reduce((acc, val) => acc + val, 0) / numVoicedFrames;
-  const meanConfidence =
-    confidenceFrames.reduce((acc, val) => acc + val, 0) / numVoicedFrames;
 
-  //console.log("meanPitch", meanPitch);
-  console.log("meanConfidence", meanConfidence);
+  // Convert mean pitch to note
+  const note = frequencyToNote(meanPitch);
 
-  plotDiv.innerText = rmsValue;
+  // Update phase of the sine wave based on mean pitch
+  phase += meanPitch * frequency;
+
+  // Clear canvas
+  context.clearRect(0, 0, canvas.width, canvas.height);
+
+  //Log the mean pitch and note
+  console.log("Mean Pitch: " + meanPitch);
+  console.log("Note: " + note);
+
+  // Draw sine wave
+  context.beginPath();
+  context.moveTo(0, yOffset);
+  for (let x = 0; x < canvas.width; x++) {
+    let y = yOffset + amplitude * Math.sin(2 * Math.PI * frequency * x + phase); //*10
+    context.lineTo(x, y);
+  }
+  context.strokeStyle = "#FF0000"; // Red color
+  context.stroke();
 }
 
+// Function to start microphone recording stream
 function startMicRecordStream() {
   if (audioCtx.state === "suspended") audioCtx.resume();
   if (navigator.mediaDevices.getUserMedia) {
@@ -93,13 +231,10 @@ function startMicRecordStream() {
         gumStream = stream;
         if (gumStream.active) {
           mic = audioCtx.createMediaStreamSource(stream);
-
           if (audioCtx.state == "suspended") {
             audioCtx.resume();
           }
-
           scriptNode = audioCtx.createScriptProcessor(bufferSize, 1, 1);
-          // onprocess callback (where we perform our analysis with essentia.js)
           scriptNode.onaudioprocess = essentiaExtractorCallback;
           mic.connect(scriptNode);
           scriptNode.connect(audioCtx.destination);
@@ -115,34 +250,13 @@ function startMicRecordStream() {
   }
 }
 
-function stopMicRecordStream() {
-  audioCtx.suspend().then(() => {
-    // stop mic stream
-    gumStream.getAudioTracks().forEach(function (track) {
-      track.stop();
-    });
-    recordButton.classList.remove("recording");
-    recordButton.innerHTML = 'Mic   <i class="microphone icon"></i>';
-
-    mic.disconnect();
-    scriptNode.disconnect();
-    plotDiv.innerText = "";
-  });
-}
-
+// Event listener for record button click
 window.onload = () => {
   recordButton.onclick = function () {
     var recording = this.classList.contains("recording");
     if (!recording) {
       this.setAttribute("disabled", true);
-      /*
-      EssentiaWASM().then(function (essentiaModule) {
-        if (!isEssentiaInstance) {
-          essentia = new Essentia(essentiaModule);
-          isEssentiaInstance = true;
-        }*/
-      startMicRecordStream(); // `enableButton` is just a function that re-enables the Start/Stop button
-      /* });*/
+      startMicRecordStream();
     } else {
       stopMicRecordStream();
     }
