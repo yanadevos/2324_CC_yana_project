@@ -209,7 +209,7 @@ function essentiaExtractorCallback(audioProcessingEvent) {
   console.log("Mean Pitch: " + meanPitch);
   console.log("Note: " + note);
 
-  // fill pitchArray to max lentgh 10 and if full remove first
+  // fill pitchArray to max length 10 and if full remove first
   pitchArray.push(meanPitch);
   if (pitchArray.length === 20) {
     pitchArray.shift();
@@ -217,20 +217,23 @@ function essentiaExtractorCallback(audioProcessingEvent) {
   // calculate average of last values
   const average = pitchArray.reduce((a, b) => a + b, 0) / pitchArray.length;
 
-  // draw white pôint on canvas
-  context.fillStyle = "white";
-  context.fillRect(x, average * 2, 1, 1);
+  // Draw glowy neon effect with a brighter and more vibrant glow
+  context.lineWidth = 3; // Increase line width for a wider glow effect
+  context.lineCap = "round";
+  context.shadowBlur = 40; // Increase shadow blur for bigger glow
+  context.shadowColor = "rgba(255, 100, 100, 1)"; // Brighter and more vibrant red glow
+  context.strokeStyle = "rgba(255, 100, 100, 1)";
 
-  // draw line
-  context.strokeStyle = "red";
-  context.beginPath();
-  context.moveTo(x - 1, lastAverage * 2);
-  context.lineTo(x, average * 2);
-  context.closePath();
-  context.stroke();
+  // Draw multiple strokes with decreasing opacity to spread the glow
+  for (let i = 1; i <= 5; i++) {
+    context.globalAlpha = 0.2 * i; // Decrease opacity for each stroke
+    context.beginPath();
+    context.moveTo(x - 1, lastAverage * 2);
+    context.lineTo(x, average * 2);
+    context.stroke();
+  }
 
   x++;
-
   lastAverage = average;
 }
 
