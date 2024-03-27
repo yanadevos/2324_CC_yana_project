@@ -15,6 +15,24 @@
 
 .container {
   display: grid;
-  margin-top: 50px;
+  margin-top: 20px;
   align-items: center;
+}
+
+#recordButton {
+  width: 100px; /* Breedte van de knop */
+  height: 20px; /* Hoogte van de knop */
+  background-color: grey; /* Achtergrondkleur van de knop */
+  border: none; /* Geen rand */
+  color: white; /* Tekstkleur */
+  text-align: center; /* Tekst gecentreerd */
+  display: flex; /* Gebruik flexbox voor uitlijning */
+  justify-content: center; /* Horizontaal centreren */
+  align-items: center; /* Verticaal centreren */
+  font-size: 12px; /* Tekstgrootte */
+  border-radius: 20px;
+
+  box-shadow:
+    0px 6px 10px rgba(0, 0, 0, 0.2),
+    /* Buitenste schaduw */ inset 0px 0px 10px rgba(0, 0, 0, 0.5); /* Innerlijke schaduw */
 }

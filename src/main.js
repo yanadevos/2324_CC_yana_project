@@ -34,18 +34,18 @@ let yOffset = canvas.height / 2; // Vertical offset to position the sine wave in
 
 // Define color mappings for notes
 const noteColors = {
-  C: "red",
-  "C#": "orange",
-  D: "yellow",
-  "D#": "green",
-  E: "blue",
-  F: "indigo",
-  "F#": "violet",
-  G: "brown",
-  "G#": "pink",
-  A: "cyan",
-  "A#": "magenta",
-  B: "purple",
+  C: "#FF9900",
+  "C#": "#BB0000",
+  D: "#9E00FF",
+  "D#": "#FF774D",
+  E: "#D9D9D9",
+  F: "#B52C00",
+  "F#": "#FF9900",
+  G: "#1363FF",
+  "G#": "#9E00FF",
+  A: "#E0027A",
+  "A#": "#9E00FF",
+  B: "#FF0000",
 };
 
 // Function to convert frequency to note
@@ -191,24 +191,23 @@ let x = 0;
 let pitchArray = [];
 let lastAverage = 0;
 
-// Create a div element with text
-const movingText = document.createElement("div");
-movingText.textContent = "Moving Text";
-movingText.style.position = "absolute";
-movingText.style.top = "50%"; // Initial position
-movingText.style.left = "0"; // Initial position
-document.body.appendChild(movingText);
-
-// Function to update the position of the moving text
-function updateMovingTextPosition(x, y) {
-  movingText.style.left = x + "px";
-  movingText.style.top = y + "px";
-}
-
 // Function to extract key and mode
 function extractKeyAndMode(audioData) {
   const computed = essentia.KeyExtractor(audioData);
-  const KEYS = ["C", "D", "E", "F", "G", "A", "B"];
+  const KEYS = [
+    "C",
+    "C#",
+    "D",
+    "D#",
+    "E",
+    "F",
+    "F#",
+    "G",
+    "G#",
+    "A",
+    "A#",
+    "B",
+  ];
 
   const keyIndex = KEYS.indexOf(computed.key);
   const mode = computed.scale === "major" ? 1 : 0;
@@ -288,11 +287,12 @@ function essentiaExtractorCallback(audioProcessingEvent) {
   const average = pitchArray.reduce((a, b) => a + b, 0) / pitchArray.length;
 
   // Draw line
-  context.lineWidth = 4; // Increase line width for a wider glow effect
+  context.lineWidth = 3; // Increase line width for a wider glow effect
   context.lineCap = "round";
-  context.shadowBlur = 40; // Increase shadow blur for bigger glow
+  context.shadowBlur = 10; // Increase shadow blur for bigger glow
   context.shadowColor = noteColor; // Brighter and more vibrant red glow
   context.strokeStyle = noteColor; // Use note color if available, otherwise default color
+  context.globalAlpha = 0.01;
 
   // Draw multiple strokes with decreasing opacity to spread the glow
   for (let i = 1; i <= 5; i++) {
@@ -308,9 +308,6 @@ function essentiaExtractorCallback(audioProcessingEvent) {
 
   // Update phase of the sine wave based on mean pitch
   phase += meanPitch * frequency;
-
-  // Update the position of the moving text based on the x and y coordinates
-  updateMovingTextPosition(x, yOffset + average);
 
   const keyResult = essentia.KeyExtractor(
     vectorSignal,
