@@ -1,6 +1,7 @@
 import Essentia from "https://cdn.jsdelivr.net/npm/essentia.js@0.1.3/dist/essentia.js-core.es.js";
 // import essentia-wasm-module
 import { EssentiaWASM } from "https://cdn.jsdelivr.net/npm/essentia.js@0.1.3/dist/essentia-wasm.es.js";
+//import { KeyExtractor } from "https://cdn.jsdelivr.net/npm/essentia.js@0.1.3/dist/essentia.js-core.es.js";
 import "./styles/style.css";
 
 const essentia = new Essentia(EssentiaWASM);
@@ -31,13 +32,25 @@ let frequency = 0.01; // Frequency of the sine wave
 let phase = 0; // Initial phase of the sine wave
 let yOffset = canvas.height / 2; // Vertical offset to position the sine wave in the middle of the canvas
 
+// Define color mappings for notes
+const noteColors = {
+  C: "red",
+  "C#": "orange",
+  D: "yellow",
+  "D#": "green",
+  E: "blue",
+  F: "indigo",
+  "F#": "violet",
+  G: "brown",
+  "G#": "pink",
+  A: "cyan",
+  "A#": "magenta",
+  B: "purple",
+};
+
 // Function to convert frequency to note
 function frequencyToNote(frequency) {
   const noteFrequencies = {
-    A0: 27.5,
-    "A#0": 29.1352,
-    B0: 30.8677,
-    C1: 32.7032,
     "C#1": 34.6478,
     D1: 36.7081,
     "D#1": 38.8909,
@@ -131,14 +144,37 @@ function frequencyToNote(frequency) {
     G8: 6271.93,
     "G#8": 6644.88,
     A8: 7040,
-    "A#8": 7458.62,
+    "A#8": 745862,
     B8: 7902.13,
+    C9: 8372.02,
+    "C#9": 8869.84,
+    D9: 9397.27,
+    "D#9": 9956.06,
+    E9: 10548.08,
+    F9: 11175.3,
+    "F#9": 11839.82,
+    G9: 12543.86,
+    "G#9": 13289.75,
+    A9: 14080,
+    "A#9": 14917.24,
+    B9: 15804.27,
+    C10: 16744.04,
+    "C#10": 17739.68,
+    D10: 18794.55,
+    "D#10": 19912.13,
+    E10: 21096.16,
+    F10: 22350.61,
+    "F#10": 23679.63,
+    G10: 25087.72,
+    "G#10": 26579.5,
+    A10: 28160,
+    "A#10": 29834.49,
+    B10: 31608.54,
   };
 
   let closestFrequency = null;
   let minDifference = Infinity;
 
-  // Find the closest frequency in the noteFrequencies object
   for (const noteFrequency in noteFrequencies) {
     const difference = Math.abs(frequency - noteFrequencies[noteFrequency]);
     if (difference < minDifference) {
@@ -154,6 +190,32 @@ function frequencyToNote(frequency) {
 let x = 0;
 let pitchArray = [];
 let lastAverage = 0;
+
+// Create a div element with text
+const movingText = document.createElement("div");
+movingText.textContent = "Moving Text";
+movingText.style.position = "absolute";
+movingText.style.top = "50%"; // Initial position
+movingText.style.left = "0"; // Initial position
+document.body.appendChild(movingText);
+
+// Function to update the position of the moving text
+function updateMovingTextPosition(x, y) {
+  movingText.style.left = x + "px";
+  movingText.style.top = y + "px";
+}
+
+// Function to extract key and mode
+function extractKeyAndMode(audioData) {
+  const computed = essentia.KeyExtractor(audioData);
+  const KEYS = ["C", "D", "E", "F", "G", "A", "B"];
+
+  const keyIndex = KEYS.indexOf(computed.key);
+  const mode = computed.scale === "major" ? 1 : 0;
+
+  return { keyIndex, mode };
+}
+
 function essentiaExtractorCallback(audioProcessingEvent) {
   // Convert the float32 audio data into std::vector<float> for use with essentia algos
   let vectorSignal = essentia.arrayToVector(
@@ -167,8 +229,8 @@ function essentiaExtractorCallback(audioProcessingEvent) {
   const bufferSize = 2000;
   const frameSize = bufferSize / 2;
   const hopSize = frameSize / 2;
-  const lowestFreq = 20; // Lowered frequency to 20 Hz
-  const highestFreq = 18372.018; // Doubled frequency to set it higher
+  const lowestFreq = 40; // Lowered frequency range to 40 Hz
+  const highestFreq = 20000; // Increased maximum frequency to 20000 Hz
   const sampleRate = 1000;
 
   const algoOutput = essentia.PitchMelodia(
@@ -202,6 +264,14 @@ function essentiaExtractorCallback(audioProcessingEvent) {
   // Convert mean pitch to note
   const note = frequencyToNote(meanPitch);
 
+  // Extract key and mode
+  const { keyIndex, mode } = extractKeyAndMode(vectorSignal);
+  console.log("Detected key index:", keyIndex);
+  console.log("Detected mode:", mode);
+
+  // Get color for the note
+  const noteColor = noteColors[note.split("#")[0]];
+
   // Update phase of the sine wave based on mean pitch
   phase += meanPitch * frequency;
 
@@ -217,24 +287,56 @@ function essentiaExtractorCallback(audioProcessingEvent) {
   // calculate average of last values
   const average = pitchArray.reduce((a, b) => a + b, 0) / pitchArray.length;
 
-  // Draw glowy neon effect with a brighter and more vibrant glow
-  context.lineWidth = 3; // Increase line width for a wider glow effect
+  // Draw line
+  context.lineWidth = 4; // Increase line width for a wider glow effect
   context.lineCap = "round";
   context.shadowBlur = 40; // Increase shadow blur for bigger glow
-  context.shadowColor = "rgba(255, 100, 100, 1)"; // Brighter and more vibrant red glow
-  context.strokeStyle = "rgba(255, 100, 100, 1)";
+  context.shadowColor = noteColor; // Brighter and more vibrant red glow
+  context.strokeStyle = noteColor; // Use note color if available, otherwise default color
 
   // Draw multiple strokes with decreasing opacity to spread the glow
   for (let i = 1; i <= 5; i++) {
     context.globalAlpha = 0.2 * i; // Decrease opacity for each stroke
     context.beginPath();
-    context.moveTo(x - 1, lastAverage * 2);
-    context.lineTo(x, average * 2);
+    context.moveTo(x - 1, yOffset + lastAverage);
+    context.lineTo(x, yOffset + average);
     context.stroke();
   }
 
   x++;
   lastAverage = average;
+
+  // Update phase of the sine wave based on mean pitch
+  phase += meanPitch * frequency;
+
+  // Update the position of the moving text based on the x and y coordinates
+  updateMovingTextPosition(x, yOffset + average);
+
+  const keyResult = essentia.KeyExtractor(
+    vectorSignal,
+    true, // averageDetuningCorrection
+    4096, // frameSize
+    4096, // hopSize
+    12, // hpcpSize
+    3500, // maxFrequency
+    60, // maximumSpectralPeaks
+    25, // minFrequency
+    0.2, // pcpThreshold
+    "bgate", // profileType
+    44100, // sampleRate
+    0.0001, // spectralPeaksThreshold
+    440, // tuningFrequency
+    "cosine", // weightType
+    "hann", // windowType
+  );
+
+  // Key en mode uit keyResult halen
+  const key = keyResult.key;
+  const scale = keyResult.scale;
+
+  // Gebruik de sleutel en schaal voor verdere verwerking
+  console.log("Detected key:", key);
+  console.log("Detected scale:", scale);
 }
 
 // Function to start microphone recording stream

@@ -12,3 +12,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.container {
+  display: grid;
+  margin-top: 50px;
+  align-items: center;
+}
