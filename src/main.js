@@ -30,7 +30,9 @@ let recordButton = document.querySelector("#recordButton");
 let amplitude = 10; // Amplitude of the sine wave
 let frequency = 0.01; // Frequency of the sine wave
 let phase = 0; // Initial phase of the sine wave
-let yOffset = canvas.height / 2; // Vertical offset to position the sine wave in the middle of the canvas
+let yOffset = 0; // Vertical offset to position the sine wave in the middle of the canvas
+
+const scales = [];
 
 // Define color mappings for notes
 const noteColors = {
@@ -263,11 +265,6 @@ function essentiaExtractorCallback(audioProcessingEvent) {
   // Convert mean pitch to note
   const note = frequencyToNote(meanPitch);
 
-  // Extract key and mode
-  const { keyIndex, mode } = extractKeyAndMode(vectorSignal);
-  console.log("Detected key index:", keyIndex);
-  console.log("Detected mode:", mode);
-
   // Get color for the note
   const noteColor = noteColors[note.split("#")[0]];
 
@@ -275,8 +272,8 @@ function essentiaExtractorCallback(audioProcessingEvent) {
   phase += meanPitch * frequency;
 
   //Log the mean pitch and note
-  console.log("Mean Pitch: " + meanPitch);
-  console.log("Note: " + note);
+  // console.log("Mean Pitch: " + meanPitch);
+  // console.log("Note: " + note);
 
   // fill pitchArray to max length 10 and if full remove first
   pitchArray.push(meanPitch);
@@ -287,19 +284,19 @@ function essentiaExtractorCallback(audioProcessingEvent) {
   const average = pitchArray.reduce((a, b) => a + b, 0) / pitchArray.length;
 
   // Draw line
-  context.lineWidth = 3; // Increase line width for a wider glow effect
+  context.lineWidth = 4; // Increase line width for a wider glow effect
   context.lineCap = "round";
-  context.shadowBlur = 10; // Increase shadow blur for bigger glow
+  context.shadowBlur = 12; // Increase shadow blur for bigger glow
   context.shadowColor = noteColor; // Brighter and more vibrant red glow
   context.strokeStyle = noteColor; // Use note color if available, otherwise default color
   context.globalAlpha = 0.01;
 
   // Draw multiple strokes with decreasing opacity to spread the glow
   for (let i = 1; i <= 5; i++) {
-    context.globalAlpha = 0.2 * i; // Decrease opacity for each stroke
+    context.globalAlpha = 0.1 * i; // Decrease opacity for each stroke
     context.beginPath();
-    context.moveTo(x - 1, yOffset + lastAverage);
-    context.lineTo(x, yOffset + average);
+    context.moveTo(x - 1, yOffset + lastAverage * 5);
+    context.lineTo(x, yOffset + average * 5);
     context.stroke();
   }
 
@@ -332,8 +329,28 @@ function essentiaExtractorCallback(audioProcessingEvent) {
   const scale = keyResult.scale;
 
   // Gebruik de sleutel en schaal voor verdere verwerking
-  console.log("Detected key:", key);
-  console.log("Detected scale:", scale);
+  // console.log("Detected key:", key);
+  // console.log("Detected scale:", scale);
+  // Extract key and mode
+  const { keyIndex, mode } = extractKeyAndMode(vectorSignal);
+  // console.log("Detected key index:", keyIndex);
+  // console.log("Detected mode:", mode);
+  // console.log(".");
+
+  // keep an array of the last 20 scales
+  scales.push(scale);
+  let amountForAverage = 100;
+  if (scales.length === amountForAverage) {
+    scales.shift();
+  }
+  const majors = scales.filter((s) => s === "major");
+  let mostCommonScale;
+  if (majors.length > amountForAverage / 2) {
+    mostCommonScale = "major";
+  } else {
+    mostCommonScale = "minor";
+  }
+  console.log("Most common scale:", mostCommonScale);
 }
 
 // Function to start microphone recording stream
