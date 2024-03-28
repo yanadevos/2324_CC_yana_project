@@ -18,6 +18,8 @@ let bufferSize = 1024; // buffer size for mic stream and ScriptProcessorNode
 let mic = null;
 let scriptNode = null;
 let gumStream;
+let averageArray = [];
+let notecolorArray = [];
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 audioCtx = new AudioContext();
@@ -283,25 +285,19 @@ function essentiaExtractorCallback(audioProcessingEvent) {
   // calculate average of last values
   const average = pitchArray.reduce((a, b) => a + b, 0) / pitchArray.length;
 
-  // Draw line
-  context.lineWidth = 4; // Increase line width for a wider glow effect
-  context.lineCap = "round";
-  context.shadowBlur = 12; // Increase shadow blur for bigger glow
-  context.shadowColor = noteColor; // Brighter and more vibrant red glow
-  context.strokeStyle = noteColor; // Use note color if available, otherwise default color
-  context.globalAlpha = 0.01;
+  // Define max number of points to keep
+  const maxPoints = 300;
 
-  // Draw multiple strokes with decreasing opacity to spread the glow
-  for (let i = 1; i <= 5; i++) {
-    context.globalAlpha = 0.1 * i; // Decrease opacity for each stroke
-    context.beginPath();
-    context.moveTo(x - 1, yOffset + lastAverage * 5);
-    context.lineTo(x, yOffset + average * 5);
-    context.stroke();
+  // fill pitchArray to max length 500 and if full remove first
+  averageArray.push(average);
+  if (averageArray.length > maxPoints) {
+    averageArray.shift();
   }
 
-  x++;
-  lastAverage = average;
+  notecolorArray.push(noteColor);
+  if (notecolorArray.length > maxPoints) {
+    notecolorArray.shift();
+  }
 
   // Update phase of the sine wave based on mean pitch
   phase += meanPitch * frequency;
@@ -395,3 +391,38 @@ window.onload = () => {
     }
   };
 };
+
+const xPosDistance = 3;
+function draw() {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  x = 0;
+  // Draw lines for all points
+  for (let i = 1; i < averageArray.length; i++) {
+    // Draw line
+
+    context.lineCap = "round";
+    //context.shadowBlur = 50; // Increase shadow blur for bigger glow
+    //context.shadowColor = notecolorArray[i]; // Brighter and more vibrant red glow
+    context.strokeStyle = notecolorArray[i]; // Use note color if available, otherwise default color
+    context.globalAlpha = 0.01;
+
+    // Draw multiple strokes with decreasing opacity to spread the glow
+    for (let j = 1; j <= 10; j++) {
+      context.lineWidth = j * 9; // Increase line width for a wider glow effect
+      context.globalAlpha = 0.02; // Decrease opacity for each stroke
+      context.beginPath();
+      context.moveTo(
+        x - xPosDistance,
+        yOffset + (averageArray[i - 1] || averageArray[i]) * 5,
+      );
+      context.lineTo(x, yOffset + averageArray[i] * 5);
+      context.stroke();
+    }
+
+    x += xPosDistance;
+  }
+
+  // on requestanimationframe
+  requestAnimationFrame(draw);
+}
+draw();
