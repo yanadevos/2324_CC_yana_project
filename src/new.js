@@ -55,6 +55,12 @@ const xPosDistance = 10;
 const yPosStart = canvas.height;
 let pathPoints = []; // Array to store path points
 
+// Function to adjust the wave height
+function waveHeight(noteValue) {
+  // Adjust the multiplier to change the height of the waves
+  return noteValue + Math.sin(noteValue * 0.01) * 10; // Example multiplier: 0.1, Example amplitude: 10
+}
+
 function draw() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   pathPoints = []; // Clear path points before redrawing
@@ -73,11 +79,11 @@ function draw() {
         x - xPosDistance,
         yPosStart + (notes[i - 1]?.value || notes[i]?.value) * -5,
       );
-      context.lineTo(x, yPosStart + notes[i].value * -5);
+      context.lineTo(x, yPosStart + waveHeight(notes[i].value) * -5); // Using waveHeight function
       context.stroke();
 
       // Store the path points
-      pathPoints.push({ x: x, y: yPosStart + notes[i].value * -5 });
+      pathPoints.push({ x: x, y: yPosStart + waveHeight(notes[i].value) * -5 }); // Using waveHeight function
     }
 
     x += xPosDistance;
@@ -99,39 +105,44 @@ draw();
 // Function to draw text along the path with proper rotation
 function drawTextAlongPath(text, pathPoints) {
   var pathLength = calculatePathLength(pathPoints);
-  var spaceBetweenLetters = pathLength / ((text.length - 1) * 0.5);
+  var spaceBetweenLetters = pathLength / text.length;
+  var textIndex = 0;
+  var textLength = 0;
 
   context.save();
   context.textBaseline = "middle";
 
   var dx, dy;
-  for (var i = 0; i < text.length; i++) {
-    var charWidth = context.measureText(text[i]).width;
-    var segmentLength = 0;
-    for (var j = 1; j <= pathPoints.length - 1; j++) {
-      var segment = {
-        start: pathPoints[j - 1],
-        end: pathPoints[j],
-      };
-      var segmentDistance = distance(segment.start, segment.end);
-      if (segmentLength + segmentDistance >= spaceBetweenLetters * i) {
-        var ratio = (spaceBetweenLetters * i - segmentLength) / segmentDistance;
-        dx = segment.start.x + ratio * (segment.end.x - segment.start.x);
-        dy = segment.start.y + ratio * (segment.end.y - segment.start.y);
-        var angle = Math.atan2(
-          segment.end.y - segment.start.y,
-          segment.end.x - segment.start.x,
-        );
-        context.translate(dx, dy);
-        context.rotate(angle);
-        context.fillText(text[i], 0, 0);
-        context.rotate(-angle);
-        context.translate(-dx, -dy);
-        break;
-      }
-      segmentLength += segmentDistance;
+  for (var i = 0; i < pathPoints.length - 1 && textIndex < text.length; i++) {
+    var segment = {
+      start: pathPoints[i],
+      end: pathPoints[i + 1],
+    };
+    var segmentLength = distance(segment.start, segment.end);
+    var segmentAngle = Math.atan2(
+      segment.end.y - segment.start.y,
+      segment.end.x - segment.start.x,
+    );
+
+    while (textLength < segmentLength && textIndex < text.length) {
+      var charWidth = context.measureText(text[textIndex]).width;
+      var ratio = textLength / segmentLength;
+      dx = segment.start.x + ratio * (segment.end.x - segment.start.x);
+      dy = segment.start.y + ratio * (segment.end.y - segment.start.y);
+
+      context.save();
+      context.translate(dx, dy);
+      context.rotate(segmentAngle);
+      context.fillText(text[textIndex], 0, 0);
+      context.restore();
+
+      textLength += charWidth;
+      textIndex++;
     }
+
+    textLength -= segmentLength;
   }
+
   context.restore();
 }
 
