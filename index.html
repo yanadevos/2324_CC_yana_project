@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Creative Coding</title>
   </head>
   <body>
@@ -13,5 +14,14 @@
       <canvas id="pitchCanvas" width="1200" height="600"></canvas>
     </div>
     <script type="module" src="src/main.js"></script>
+
+    <script>
+      document.getElementById("recordButton");
+      document.addEventListener("click", function () {
+        // Hier voeg je de CSS-klasse 'hidden' toe aan de form__group en h1 elementen
+        document.querySelector(".form__group").classList.add("hidden");
+        document.querySelector("h1").classList.add("hidden");
+      });
+    </script>
   </body>
 </html>

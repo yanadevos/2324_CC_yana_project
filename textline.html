@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Following Path</title>
+    <style>
+      canvas {
+        border: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="800" height="400"></canvas>
+    <script>
+      // Get the canvas element
+      var canvas = document.getElementById("myCanvas");
+      var ctx = canvas.getContext("2d");
+
+      // Define the path for the text
+      var path = [
+        { x: 50, y: 200 },
+        { x: 200, y: 100 },
+        { x: 400, y: 300 },
+        { x: 600, y: 100 },
+        { x: 750, y: 200 },
+      ];
+
+      // Function to draw the path
+      function drawPath() {
+        ctx.beginPath();
+        ctx.moveTo(path[0].x, path[0].y);
+        for (var i = 1; i < path.length; i++) {
+          ctx.lineTo(path[i].x, path[i].y);
+        }
+        ctx.stroke();
+      }
+
+      // Function to draw text along the path with proper rotation
+      function drawTextAlongPath(text, path) {
+        var pathLength = calculatePathLength(path);
+        var spaceBetweenLetters = pathLength / (text.length - 1);
+
+        ctx.save();
+        ctx.textBaseline = "middle";
+
+        var dx, dy;
+        for (var i = 0; i < text.length; i++) {
+          var charWidth = ctx.measureText(text[i]).width;
+          var segmentLength = 0;
+          for (var j = 1; j <= path.length - 1; j++) {
+            var segment = {
+              start: path[j - 1],
+              end: path[j],
+            };
+            var segmentDistance = distance(segment.start, segment.end);
+            if (segmentLength + segmentDistance >= spaceBetweenLetters * i) {
+              var ratio =
+                (spaceBetweenLetters * i - segmentLength) / segmentDistance;
+              dx = segment.start.x + ratio * (segment.end.x - segment.start.x);
+              dy = segment.start.y + ratio * (segment.end.y - segment.start.y);
+              var angle = Math.atan2(
+                segment.end.y - segment.start.y,
+                segment.end.x - segment.start.x,
+              );
+              ctx.translate(dx, dy);
+              ctx.rotate(angle);
+              ctx.fillText(text[i], 0, 0);
+              ctx.rotate(-angle);
+              ctx.translate(-dx, -dy);
+              break;
+            }
+            segmentLength += segmentDistance;
+          }
+        }
+        ctx.restore();
+      }
+
+      // Function to calculate distance between two points
+      function distance(p1, p2) {
+        var dx = p2.x - p1.x;
+        var dy = p2.y - p1.y;
+        return Math.sqrt(dx * dx + dy * dy);
+      }
+
+      // Function to calculate the total length of the path
+      function calculatePathLength(path) {
+        var totalLength = 0;
+        for (var i = 1; i < path.length; i++) {
+          var dx = path[i].x - path[i - 1].x;
+          var dy = path[i].y - path[i - 1].y;
+          totalLength += Math.sqrt(dx * dx + dy * dy);
+        }
+        return totalLength;
+      }
+
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw the path
+      drawPath();
+
+      // Draw text along the path
+      var text = "Text Along Path";
+      ctx.font = "20px Arial";
+      ctx.fillStyle = "black";
+      drawTextAlongPath(text, path);
+    </script>
+  </body>
+</html>

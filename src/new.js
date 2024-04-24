@@ -1,6 +1,49 @@
 import "./styles/style.css";
 import Tuner from "./tuner.js";
 
+import { OpenAI } from "openai";
+import { OPENAI_API_KEY } from "../secret.js";
+
+const openai = new OpenAI({
+  apiKey: OPENAI_API_KEY,
+  dangerouslyAllowBrowser: true,
+});
+
+document.getElementById("recordButton").addEventListener("click", function () {
+  // Hier voeg je de CSS-klasse 'hidden' toe aan de omliggende elementen
+  document.querySelector(".form__group").classList.add("hidden");
+  document.querySelector("h1").classList.add("hidden");
+});
+
+document.getElementById("name").addEventListener("focus", function () {
+  // Hier verwijder je de 'hidden' CSS-klasse wanneer het invoerveld wordt geselecteerd
+  document.querySelector(".form__group").classList.remove("hidden");
+  document.querySelector("h1").classList.remove("hidden");
+});
+
+const feeling = "anxious";
+const input = "school";
+
+async function main() {
+  const completion = await openai.chat.completions.create({
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a lyrics writer that puts a lot of feeling in her songs.",
+      },
+      {
+        role: "user",
+        content: `Please generate a ${feeling} lyrics about ${input}`,
+      },
+    ],
+    model: "gpt-3.5-turbo",
+  });
+
+  console.log(completion.choices[0]);
+}
+main();
+
 const noteColors = {
   C: "#FF9900",
   "C#": "#BB0000",
@@ -15,6 +58,129 @@ const noteColors = {
   "A#": "#9E00FF",
   B: "#FF0000",
 };
+
+const toonaarden = [
+  {
+    toonsoort: "mineur",
+    grondtoon: "A",
+    toonladder: ["A", "B", "C", "D", "E", "F", "G"],
+  },
+  {
+    toonsoort: "majeur",
+    grondtoon: "C",
+    toonladder: ["C", "D", "E", "F", "G", "A", "B"],
+  },
+  {
+    toonsoort: "mineur",
+    grondtoon: "D",
+    toonladder: ["D", "E", "F", "G", "A", "A#", "C"],
+  },
+  {
+    toonsoort: "majeur",
+    grondtoon: "F",
+    toonladder: ["F", "G", "A", "A#", "C", "D", "E"],
+  },
+  {
+    toonsoort: "mineur",
+    grondtoon: "G",
+    toonladder: ["G", "A", "A#", "C", "D", "D#", "F"],
+  },
+  {
+    toonsoort: "majeur",
+    grondtoon: "A",
+    toonladder: ["A", "B", "C#", "D", "E", "F#", "G#"],
+  },
+  {
+    toonsoort: "mineur",
+    grondtoon: "C",
+    toonladder: ["C", "D", "D#", "F", "G", "G#", "A#"],
+  },
+  {
+    toonsoort: "majeur",
+    grondtoon: "D",
+    toonladder: ["D", "E", "F#", "G", "A", "B", "C#"],
+  },
+  {
+    toonsoort: "mineur",
+    grondtoon: "F",
+    toonladder: ["F", "G", "G#", "A#", "C#", "C", "D#"],
+  },
+  {
+    toonsoort: "majeur",
+    grondtoon: "G",
+    toonladder: ["G", "A", "B", "C", "D", "E", "F#"],
+  },
+  {
+    toonsoort: "mineur",
+    grondtoon: "E",
+    toonladder: ["E", "F#", "G", "A", "B", "C", "D"],
+  },
+  {
+    toonsoort: "mineur",
+    grondtoon: "B",
+    toonladder: ["B", "C#", "D", "E", "F#", "G", "A"],
+  },
+  {
+    toonsoort: "mineur",
+    grondtoon: "F#",
+    toonladder: ["F#", "G#", "A", "B", "C#", "D", "E"],
+  },
+  {
+    toonsoort: "mineur",
+    grondtoon: "C#",
+    toonladder: ["C#", "D#", "E", "F#", "G#", "A", "B"],
+  },
+  {
+    toonsoort: "mineur",
+    grondtoon: "G#",
+    toonladder: ["G#", "A#", "B", "C#", "D#", "E", "F#"],
+  },
+  {
+    toonsoort: "mineur",
+    grondtoon: "D#",
+    toonladder: ["D#", "E#", "F#", "G#", "A#", "B", "C#"],
+  },
+  {
+    toonsoort: "mineur",
+    grondtoon: "A#",
+    toonladder: ["A#", "C", "C#", "D#", "F", "F#", "G#"],
+  },
+  {
+    toonsoort: "majeur",
+    grondtoon: "E",
+    toonladder: ["E", "F#", "G#", "A", "B", "C#", "D#"],
+  },
+  {
+    toonsoort: "majeur",
+    grondtoon: "B",
+    toonladder: ["B", "C#", "D#", "E", "F#", "G#", "A#"],
+  },
+  {
+    toonsoort: "majeur",
+    grondtoon: "F#",
+    toonladder: ["F#", "G#", "A#", "B", "C#", "D#", "E#"],
+  },
+  {
+    toonsoort: "majeur",
+    grondtoon: "C#",
+    toonladder: ["C#", "D#", "E#", "F#", "G#", "A#", "C"],
+  },
+  {
+    toonsoort: "majeur",
+    grondtoon: "G#",
+    toonladder: ["G#", "A#", "C", "C#", "D#", "F", "G"],
+  },
+  {
+    toonsoort: "majeur",
+    grondtoon: "D#",
+    toonladder: ["D#", "F", "G", "G#", "A#", "C", "D"],
+  },
+  {
+    toonsoort: "majeur",
+    grondtoon: "A#",
+    toonladder: ["A#", "C", "D", "D#", "F", "G", "A"],
+  },
+];
 
 const tuner = new Tuner(440);
 
@@ -73,7 +239,7 @@ function draw() {
     // Draw multiple strokes with decreasing opacity to spread the glow
     for (let j = 1; j <= 10; j++) {
       context.lineWidth = j * 9; // Increase line width for a wider glow effect
-      context.globalAlpha = 0.02; // Decrease opacity for each stroke
+      context.globalAlpha = 0.05; // Decrease opacity for each stroke
       context.beginPath();
       context.moveTo(
         x - xPosDistance,
@@ -164,6 +330,55 @@ function calculatePathLength(path) {
   return totalLength;
 }
 
+function findClosestMatches(scaledNotes, toonaarden) {
+  let closestMatches = [];
+  let minDifference1 = Infinity;
+  let minDifference2 = Infinity;
+
+  for (const toon of toonaarden) {
+    const difference = scaledNotes.reduce((acc, note, index) => {
+      const noteIndex = toon.toonladder.indexOf(note.name);
+      if (noteIndex !== -1) {
+        const dist = Math.abs(index - noteIndex);
+        return acc + dist;
+      }
+      return acc;
+    }, 0);
+
+    if (difference < minDifference1) {
+      minDifference2 = minDifference1;
+      closestMatches[1] = closestMatches[0];
+      minDifference1 = difference;
+      closestMatches[0] = toon;
+    } else if (difference < minDifference2) {
+      minDifference2 = difference;
+      closestMatches[1] = toon;
+    }
+  }
+
+  return closestMatches;
+}
+
+function determineTonality(scaledNotes, toonaarden) {
+  const closestMatches = findClosestMatches(scaledNotes, toonaarden);
+
+  const type1 = closestMatches[0].toonsoort;
+  const type2 = closestMatches[1].toonsoort;
+
+  if (type1 === type2) {
+    return type1;
+  } else {
+    const grondtoon1Count = scaledNotes.filter(
+      (note) => note.name === closestMatches[0].grondtoon,
+    ).length;
+    const grondtoon2Count = scaledNotes.filter(
+      (note) => note.name === closestMatches[1].grondtoon,
+    ).length;
+
+    return grondtoon1Count >= grondtoon2Count ? type1 : type2;
+  }
+}
+
 function calculate() {
   // calculate average note duration
   let sum = 0;
@@ -178,44 +393,11 @@ function calculate() {
   let scaleNotes = differentNotes;
   scaleNotes.sort((a, b) => a.value - b.value);
 
-  // Function to calculate intervals between notes
-  const calculateIntervals = (sortedNotes) => {
-    let intervals = [];
-    for (let i = 1; i < sortedNotes.length; i++) {
-      let interval = sortedNotes[i].value - sortedNotes[i - 1].value;
-      intervals.push(interval);
-    }
-    return intervals;
-  };
+  console.log("Scale notes: " + scaleNotes);
+  console.log(scaleNotes);
 
-  // Function to determine if the intervals represent a major or minor chord/scale
-  const determineChordType = (intervals) => {
-    // This is a simplistic way to determine chord type based on common intervals
-    const majorIntervals = [4, 3]; // Major third followed by minor third
-    const minorIntervals = [3, 4]; // Minor third followed by major third
-
-    if (intervals.length >= 2) {
-      if (
-        intervals[0] === majorIntervals[0] &&
-        intervals[1] === majorIntervals[1]
-      ) {
-        return "Major";
-      } else if (
-        intervals[0] === minorIntervals[0] &&
-        intervals[1] === minorIntervals[1]
-      ) {
-        return "Minor";
-      }
-    }
-
-    return "Unknown";
-  };
-
-  const intervals = calculateIntervals(scaleNotes);
-  console.log(intervals);
-  const chordType = determineChordType(intervals);
-
-  console.log(`The chord/scale is likely: ${chordType}`);
+  const tonality = determineTonality(scaledNotes, toonaarden);
+  console.log(tonality);
 }
 
 setInterval(calculate, 5000);
