@@ -22,7 +22,11 @@ document.getElementById("name").addEventListener("focus", function () {
 });
 
 const feeling = "anxious";
-const input = "school";
+//const input = "school";
+
+document.getElementById("name").addEventListener("input", function (event) {
+  input = event.target.value; // Update de waarde van de input variabele naar wat de gebruiker typt
+});
 
 async function main() {
   const completion = await openai.chat.completions.create({
@@ -48,8 +52,8 @@ const noteColors = {
   C: "#FF9900",
   "C#": "#BB0000",
   D: "#9E00FF",
-  "D#": "#FF774D",
-  E: "#D9D9D9",
+  "D#": "#FF450C",
+  E: "#FF9900",
   F: "#B52C00",
   "F#": "#FF9900",
   G: "#1363FF",
@@ -185,12 +189,12 @@ const toonaarden = [
 const tuner = new Tuner(440);
 
 let lastNote = null;
-const maxNotes = 100;
+const maxNotes = 25;
 const notes = [];
 const differentNotes = [];
 
 tuner.onNoteDetected = function (note) {
-  console.log(note);
+  // console.log(note);
 
   notes.push(note);
   if (notes.length > maxNotes) {
@@ -203,6 +207,7 @@ tuner.onNoteDetected = function (note) {
       note.duration = note.timestamp - lastNote.timestamp;
     }
     differentNotes.push(note);
+    //console.log(note);
     if (differentNotes.length > maxNotes) {
       differentNotes.shift();
     }
@@ -331,37 +336,32 @@ function calculatePathLength(path) {
 }
 
 function findClosestMatches(scaledNotes, toonaarden) {
-  let closestMatches = [];
-  let minDifference1 = Infinity;
-  let minDifference2 = Infinity;
+  let closestMatches = [...toonaarden];
 
-  for (const toon of toonaarden) {
-    const difference = scaledNotes.reduce((acc, note, index) => {
-      const noteIndex = toon.toonladder.indexOf(note.name);
-      if (noteIndex !== -1) {
-        const dist = Math.abs(index - noteIndex);
-        return acc + dist;
+  scaledNotes.forEach((note) => {
+    // is not in found in toonladder of closesMatches, if no, remove from closestMatches
+    const removeIndexes = [];
+    closestMatches.forEach((match, index) => {
+      if (!match.toonladder.find((n) => n === note.name)) {
+        removeIndexes.push(index);
       }
-      return acc;
-    }, 0);
+    });
+    // remove indexes from closestMatches
+    const newClosestMatches = closestMatches.filter(
+      (_, index) => !removeIndexes.includes(index),
+    );
 
-    if (difference < minDifference1) {
-      minDifference2 = minDifference1;
-      closestMatches[1] = closestMatches[0];
-      minDifference1 = difference;
-      closestMatches[0] = toon;
-    } else if (difference < minDifference2) {
-      minDifference2 = difference;
-      closestMatches[1] = toon;
+    if (newClosestMatches.length >= 2) {
+      closestMatches = newClosestMatches;
     }
-  }
+  });
 
   return closestMatches;
 }
 
 function determineTonality(scaledNotes, toonaarden) {
   const closestMatches = findClosestMatches(scaledNotes, toonaarden);
-
+  console.log(closestMatches);
   const type1 = closestMatches[0].toonsoort;
   const type2 = closestMatches[1].toonsoort;
 
@@ -388,15 +388,30 @@ function calculate() {
   let avg = sum / differentNotes.length;
   console.log("Average note duration: " + avg);
 
+  // now create a new array with all notes that are played longer than 100ms
+  let longNotes = differentNotes.filter((note) => note.duration > 100);
+
   // now check if use notes are minor or major
   // Sort the notes by their value
-  let scaleNotes = differentNotes;
-  scaleNotes.sort((a, b) => a.value - b.value);
+  let scaleNotes = longNotes;
 
-  console.log("Scale notes: " + scaleNotes);
+  // sort the scaledNotes on how many times the .name value is present
+  scaleNotes.sort((a, b) =>
+    scaleNotes.filter((note) => note.name === a.name).length >
+    scaleNotes.filter((note) => note.name === b.name).length
+      ? -1
+      : 1,
+  );
+
+  // remove last 3 notes from scaleNotes
+  scaleNotes = scaleNotes.slice(0, -3);
+
   console.log(scaleNotes);
+  // log just the note .name of each note object
+  let scaleNoteNames = scaleNotes.map((note) => note.name);
+  console.log(scaleNoteNames);
 
-  const tonality = determineTonality(scaledNotes, toonaarden);
+  const tonality = determineTonality(scaleNotes, toonaarden);
   console.log(tonality);
 }
 
