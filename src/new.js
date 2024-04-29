@@ -13,6 +13,9 @@ document.getElementById("recordButton").addEventListener("click", function () {
   // Hier voeg je de CSS-klasse 'hidden' toe aan de omliggende elementen
   document.querySelector(".form__group").classList.add("hidden");
   document.querySelector("h1").classList.add("hidden");
+  document.querySelector("#recordButton").classList.add("hidden");
+
+  input = document.getElementById("name").value;
 });
 
 document.getElementById("name").addEventListener("focus", function () {
@@ -21,32 +24,35 @@ document.getElementById("name").addEventListener("focus", function () {
   document.querySelector("h1").classList.remove("hidden");
 });
 
-const feeling = "anxious";
-//const input = "school";
+let feeling = "anxious";
+let input = "";
+let lyrics = "";
 
-document.getElementById("name").addEventListener("input", function (event) {
-  input = event.target.value; // Update de waarde van de input variabele naar wat de gebruiker typt
-});
+async function getText() {
+  console.log("hallooooo");
 
-async function main() {
-  const completion = await openai.chat.completions.create({
-    messages: [
-      {
-        role: "system",
-        content:
-          "You are a lyrics writer that puts a lot of feeling in her songs.",
-      },
-      {
-        role: "user",
-        content: `Please generate a ${feeling} lyrics about ${input}`,
-      },
-    ],
-    model: "gpt-3.5-turbo",
-  });
+  console.log(input, feeling);
+  if (input && feeling) {
+    const completion = await openai.chat.completions.create({
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a lyrics writer that puts a lot of feeling in her songs.",
+        },
+        {
+          role: "user",
+          content: `Please generate a ${feeling} lyrics about ${input}, text should be around 250 words. The lyrics should not include any structural information like 'verse' or 'bridge'. Additionally, please continue building on the existing lyrical text, if any.\n\nExisting lyrics:\n${lyrics}`,
+        },
+      ],
+      model: "gpt-3.5-turbo",
+    });
 
-  console.log(completion.choices[0]);
+    lyrics += completion.choices[0].message.content;
+
+    console.log(completion.choices[0].message.content);
+  }
 }
-main();
 
 const noteColors = {
   C: "#FF9900",
@@ -189,6 +195,7 @@ const toonaarden = [
 const tuner = new Tuner(440);
 
 let lastNote = null;
+const maxNotesVisual = 100;
 const maxNotes = 25;
 const notes = [];
 const differentNotes = [];
@@ -197,7 +204,7 @@ tuner.onNoteDetected = function (note) {
   // console.log(note);
 
   notes.push(note);
-  if (notes.length > maxNotes) {
+  if (notes.length > maxNotesVisual) {
     notes.shift();
   }
   if (!lastNote || lastNote.value !== note.value) {
@@ -213,6 +220,8 @@ tuner.onNoteDetected = function (note) {
     }
     lastNote = note;
   }
+
+  draw();
 };
 
 document.querySelector("#recordButton").addEventListener("click", () => {
@@ -222,19 +231,18 @@ document.querySelector("#recordButton").addEventListener("click", () => {
 let canvas = document.getElementById("pitchCanvas");
 let context = canvas.getContext("2d");
 
-const xPosDistance = 10;
+const xPosDistance = 15;
 const yPosStart = canvas.height;
 let pathPoints = []; // Array to store path points
 
 // Function to adjust the wave height
 function waveHeight(noteValue) {
   // Adjust the multiplier to change the height of the waves
-  return noteValue + Math.sin(noteValue * 0.01) * 10; // Example multiplier: 0.1, Example amplitude: 10
+  return noteValue + Math.pow(noteValue * 0.01, 4) * 2; // Example multiplier: 0.1, Example amplitude: 10
 }
 
 function draw() {
   context.clearRect(0, 0, canvas.width, canvas.height);
-  pathPoints = []; // Clear path points before redrawing
   let x = 0;
   for (let i = 1; i < notes.length; i++) {
     context.lineCap = "round";
@@ -254,24 +262,30 @@ function draw() {
       context.stroke();
 
       // Store the path points
+    }
+    if (lyrics && i == notes.length - 1) {
       pathPoints.push({ x: x, y: yPosStart + waveHeight(notes[i].value) * -5 }); // Using waveHeight function
     }
-
     x += xPosDistance;
   }
 
+  // pathPoints x should end with the x given as last point, but should then go back to the start with xPosDistance
+  if (pathPoints.length > 0) {
+    let lastPoint = pathPoints[pathPoints.length - 1].x;
+    for (let i = pathPoints.length - 1; i >= 0; i--) {
+      pathPoints[i].x = lastPoint - (pathPoints.length - i) * xPosDistance;
+    }
+  }
+
   // Draw text along the path
-  var lyrics =
-    "Fly me to the moon, let me play among the stars. Let me see what spring is like on a jupiter and mars. In other words???? Fly me to the moon, let me play among the stars. Let me see what spring is like on a jupiter and mars. In other words???? Fly me to the moon, let me play among the stars. Let me see what spring is like on a jupiter and mars. In other words???? Fly me to the moon, let me play among the stars. Let me see what spring is like on a jupiter and mars. In other words????Fly me to the moon, let me play among the stars. Let me see what spring is like on a jupiter and mars. In other words????Fly me to the moon, let me play among the stars. Let me see what spring is like on a jupiter and mars. In other words????Fly me to the moon, let me play among the stars. Let me see what spring is like on a jupiter and mars. In other words???? Fly me to the moon, let me play among the stars. Let me see what spring is like on a jupiter and mars. In other words????"; // Change this to your actual lyrics
   context.font = "20px Arial";
   context.fillStyle = "white";
   context.globalAlpha = 1;
   drawTextAlongPath(lyrics, pathPoints);
 
   // on requestanimationframe
-  requestAnimationFrame(draw);
+  //requestAnimationFrame(draw);
 }
-draw();
 
 // Function to draw text along the path with proper rotation
 function drawTextAlongPath(text, pathPoints) {
@@ -362,21 +376,16 @@ function findClosestMatches(scaledNotes, toonaarden) {
 function determineTonality(scaledNotes, toonaarden) {
   const closestMatches = findClosestMatches(scaledNotes, toonaarden);
   console.log(closestMatches);
-  const type1 = closestMatches[0].toonsoort;
-  const type2 = closestMatches[1].toonsoort;
+  let closestMatch = null;
+  scaledNotes.forEach((note) => {
+    // Find the closest match in the toonaarden array by grondtoon
+    if (closestMatch == null) {
+      closestMatch =
+        closestMatches.find((match) => match.grondtoon === note.name) || null;
+    }
+  });
 
-  if (type1 === type2) {
-    return type1;
-  } else {
-    const grondtoon1Count = scaledNotes.filter(
-      (note) => note.name === closestMatches[0].grondtoon,
-    ).length;
-    const grondtoon2Count = scaledNotes.filter(
-      (note) => note.name === closestMatches[1].grondtoon,
-    ).length;
-
-    return grondtoon1Count >= grondtoon2Count ? type1 : type2;
-  }
+  return closestMatch ? closestMatch.toonsoort : closestMatches[0].toonsoort;
 }
 
 function calculate() {
@@ -389,7 +398,7 @@ function calculate() {
   console.log("Average note duration: " + avg);
 
   // now create a new array with all notes that are played longer than 100ms
-  let longNotes = differentNotes.filter((note) => note.duration > 100);
+  let longNotes = differentNotes.filter((note) => note.duration > 50);
 
   // now check if use notes are minor or major
   // Sort the notes by their value
@@ -406,13 +415,21 @@ function calculate() {
   // remove last 3 notes from scaleNotes
   scaleNotes = scaleNotes.slice(0, -3);
 
-  console.log(scaleNotes);
+  // console.log(scaleNotes);
   // log just the note .name of each note object
   let scaleNoteNames = scaleNotes.map((note) => note.name);
   console.log(scaleNoteNames);
 
   const tonality = determineTonality(scaleNotes, toonaarden);
   console.log(tonality);
+
+  if (tonality === "majeur") {
+    feeling = "happy";
+  } else {
+    feeling = "sad";
+  }
+
+  getText();
 }
 
-setInterval(calculate, 5000);
+setInterval(calculate, 10000);

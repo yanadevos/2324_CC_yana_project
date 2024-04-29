@@ -21,13 +21,13 @@
 
 #recordButton {
   font-family: inherit;
-  padding: 6px 22px;
+  padding: 6px 32px;
   border: none;
   outline: none;
   font-size: 0.8rem;
-  color: var(--white);
+  color: white;
   background-color: #f90; /* Fel oranjegeel */
-  border-radius: 10px; /* Afronding van de randen */
+  border-radius: 50px; /* Afronding van de randen */
   cursor: pointer;
   transition: background-color 0.2s; /* Overgang voor de achtergrondkleur */
   margin-top: 50px;
