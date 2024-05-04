@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: black;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -20,25 +20,43 @@
 }
 
 #recordButton {
-  font-family: inherit;
-  padding: 6px 32px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   border: none;
   outline: none;
   font-size: 0.8rem;
   color: white;
-  background-color: #f90; /* Fel oranjegeel */
-  border-radius: 50px; /* Afronding van de randen */
   cursor: pointer;
-  transition: background-color 0.2s; /* Overgang voor de achtergrondkleur */
   margin-top: 50px;
-  filter: blur(12.75px); /* Vervaagde achtergrond */
+  background: none;
+  width: 100px;
+  height: 40px;
+  position: relative;
 }
 
-#recordButton:hover {
+.buttonbackground {
+  background-color: #f90; /* Fel oranjegeel */
+  border-radius: 50px; /* Afronding van de randen */
+  transition: background-color 0.2s; /* Overgang voor de achtergrondkleur */
+  filter: blur(12.75px); /* Vervaagde achtergrond */
+  display: block;
+  height: 100%;
+}
+
+.buttontext {
+  font-family: "Poppins", sans-serif;
+  line-height: 40px;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#recordButton:hover .buttonbackground {
   background-color: rgba(158, 0, 255, 0.5); /* Licht paars met transparantie */
 }
 
-#recordButton:focus {
+#recordButton:focus .buttonbackground {
   background-color: rgba(158, 0, 255, 0.5); /* Licht paars met transparantie */
 }
 
@@ -51,7 +69,7 @@ body {
   align-items: center;
   min-height: 100vh;
   font-size: 1.5rem;
-  background-color: #222222;
+  background-color: black;
   overflow: hidden;
 }
 :root {

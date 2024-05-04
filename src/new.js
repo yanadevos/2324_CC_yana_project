@@ -4,6 +4,8 @@ import Tuner from "./tuner.js";
 import { OpenAI } from "openai";
 import { OPENAI_API_KEY } from "../secret.js";
 
+let timestamp = new Date().getTime();
+
 const openai = new OpenAI({
   apiKey: OPENAI_API_KEY,
   dangerouslyAllowBrowser: true,
@@ -49,6 +51,7 @@ async function getText() {
     });
 
     lyrics += completion.choices[0].message.content;
+    localStorage.setItem("lyrics-" + timestamp, lyrics);
 
     console.log(completion.choices[0].message.content);
   }
@@ -195,18 +198,25 @@ const toonaarden = [
 const tuner = new Tuner(440);
 
 let lastNote = null;
-const maxNotesVisual = 100;
+const maxNotesVisual = 75;
 const maxNotes = 25;
 const notes = [];
 const differentNotes = [];
+const frameRate = 13;
+let lastDraw = new Date().getTime();
 
 tuner.onNoteDetected = function (note) {
   // console.log(note);
-
-  notes.push(note);
-  if (notes.length > maxNotesVisual) {
-    notes.shift();
+  const now = new Date().getTime();
+  if (now - lastDraw > 1000 / frameRate) {
+    notes.push(note);
+    if (notes.length > maxNotesVisual) {
+      notes.shift();
+    }
+    lastDraw = now;
+    draw();
   }
+
   if (!lastNote || lastNote.value !== note.value) {
     note.timestamp = new Date().getTime();
     note.duration = 0;
@@ -220,8 +230,6 @@ tuner.onNoteDetected = function (note) {
     }
     lastNote = note;
   }
-
-  draw();
 };
 
 document.querySelector("#recordButton").addEventListener("click", () => {
