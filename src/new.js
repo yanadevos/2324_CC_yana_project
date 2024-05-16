@@ -441,3 +441,7 @@ function calculate() {
 }
 
 setInterval(calculate, 10000);
+
+canvas.addEventListener("click", function () {
+  location.reload();
+});
