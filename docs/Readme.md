@@ -21,7 +21,9 @@ Kortom het is de bedoeling om aan de hand van tekst, kleur en muziek een verhaal
 - [Essentia](#essentia)
   - [Concept](#concept)
   - [Inhoud](#inhoud)
-  - [Benodigdheden](#benodigdheden) - [Eerste visualisatie](#eerste-visualisatie) - [Eind visualisatie](#eind-visualisatie)
+  - [Benodigdheden](#benodigdheden)
+    - [Eerste visualisatie](#eerste-visualisatie)
+    - [Eind visualisatie](#eind-visualisatie)
   - [Tips en Valkuilen](#tips-en-valkuilen)
   - [Extra's Creëren](#extras-creëren)
   - [Code](#code)
@@ -38,21 +40,54 @@ Kortom het is de bedoeling om aan de hand van tekst, kleur en muziek een verhaal
 - Opnameapparatuur
 - SoundCloud-account
 
-##### Eerste visualisatie
+#### Eerste visualisatie
 
 (foto van eerste visualisatie)
 
-##### Eind visualisatie
+#### Eind visualisatie
 
 (foto van tweede visualisatie)
 
 ## Tips en Valkuilen
 
-Geef enkele tips en suggesties voor het werken aan het project en wijs op mogelijke valkuilen die je hebt ontdekt tijdens het maken ervan.
+-uitleg niet vergeten om het concept en de werking te duiden, of vooraan goede instructies te geven
+
+-goed afspreken met muzikant
+
+-duidelijk communiceren met gebruikers over de tijdsloten
+
+-opname apparatuur
+
+-niet vergeten posten op soundcloud
+
+-zien dat je logs goed bijhoud van de verhalen/lyrics
 
 ## Extra's Creëren
 
-Hier kun je ideeën delen voor extra functies of verbeteringen die kunnen worden toegevoegd aan het project.
+Ik heb stickers en kaartjes ontworpen die bezoekers kunnen meenemen na hun bezoek aan ‘Essentia’. Zo krijgt elke bezoeker een tastbare herinnering aan hun ervaring, waardoor ze deze nooit zullen vergeten en altijd opnieuw kunnen beleven.
+
+<li> <strong>Stickers</strong> </li>
+
+Ik heb de stickers gemaakt in Adobe Illustator. De ‘Essentia’ stickers hebben een gradient die dezelfde kleuren heeft als de visualisatie van de installatie.
+
+In de sticker gebruik ik specifiek deze 5 kleuren:
+
+-#2E3192
+-#F6A72B
+-#E75D31
+-#D62190
+-#683092
+
+Daarnaast gebruik ik voor ‘Essentia’ altijd het font, Georgia Pro. En voor ander gebruikte tekst Roboto.
+
+In het Illustrator-bestand maakt u twee lagen. Een artworklaag en een CutContour (=snijlijn). De snijcontour heeft een 100% magenta kleur. Hierdoor zal de snijmachine weten op welke lijn hij de stickers uit moet snijden.
+
+(foto van stickers)
+
+<li> <strong>Kaartjes</strong> </li>
+De kaartjes zijn gemaakt met dezelfde kleuren als die van de stickers (kijk hierboven). De QR code op de kaartjes heb ik gecreëerd met deze link van het ‘Essentia’ Soundcloud account.
+
+-https://soundcloud.com/user-907091839
 
 ## Code
 
