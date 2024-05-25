@@ -83,9 +83,18 @@ In het Illustrator-bestand maakt u twee lagen. Een artworklaag en een CutContour
 (foto van stickers)
 
 <li> <strong>Kaartjes</strong> </li>
+
 De kaartjes zijn gemaakt met dezelfde kleuren als die van de stickers (kijk hierboven). De QR code op de kaartjes heb ik gecreëerd met deze link van het ‘Essentia’ Soundcloud account.
 
 -https://soundcloud.com/user-907091839
+
+(foto van kaartjes)
+
+<li> <strong>Affishes</strong> </li>
+
+Daarnaast heb ik ook affiches ontworpen om de tijdsloten aan te duiden van wanneer de installatie vanstart zou gaan. Ook deze is gemaakt met dezelfde kleuren en dezelfde typo als de stickers en de kaartjes.
+
+(foto van affishes)
 
 ## Code
 
@@ -93,4 +102,8 @@ Voeg hier een overzicht toe van de belangrijkste delen van de code en leg kort u
 
 ## Opstelling
 
-Geef instructies over hoe het project moet worden opgezet en klaargemaakt voor gebruik.
+De opstelling van ‘Essentia’ is heel eenvoudig, de laptop (waar de installatie op runt) zal verbonden worden met de beamer aan de hand van een HDMI kabel. Op deze laptop zullen de gebruikers ook het onderwerp kunnen ingeven.
+
+De muzikant staat naast of onder het geprojecteerde beeld, zodat de muziek goed door de microfoon wordt opgenomen. Dit zorgt er ook voor dat, wanneer er foto’s en video’s van de installatie worden gemaakt, de muzikant duidelijk zichtbaar is en het concept goed overkomt.
+
+Aan de uitgang waar de gebruikers weer naar buiten gaan, liggen de kaartjes en de stickers zodat ze deze na de demonstratie makkelijk kunnen meenemen.
