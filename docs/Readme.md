@@ -22,8 +22,6 @@ Kortom het is de bedoeling om aan de hand van tekst, kleur en muziek een verhaal
   - [Concept](#concept)
   - [Inhoud](#inhoud)
   - [Benodigdheden](#benodigdheden)
-    - [Eerste visualisatie](#eerste-visualisatie)
-    - [Eind visualisatie](#eind-visualisatie)
   - [Tips en Valkuilen](#tips-en-valkuilen)
   - [Extra's Creëren](#extras-creëren)
   - [Code](#code)
@@ -40,11 +38,11 @@ Kortom het is de bedoeling om aan de hand van tekst, kleur en muziek een verhaal
 - Opnameapparatuur
 - SoundCloud-account
 
-#### Eerste visualisatie
+**Eerste visualisatie**
 
 (foto van eerste visualisatie)
 
-#### Eind visualisatie
+**Eind visualisatie**
 
 (foto van tweede visualisatie)
 
