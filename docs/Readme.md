@@ -57,21 +57,48 @@
 
 ## Tips en Valkuilen
 
--uitleg niet vergeten om het concept en de werking te duiden, of vooraan goede instructies te geven
-
--goed afspreken met muzikant
-
--duidelijk communiceren met gebruikers over de tijdsloten
-
--opname apparatuur
-
--niet vergeten posten op soundcloud
-
--zien dat je logs goed bijhoud van de verhalen/lyrics
-
--API key aanmaken voor open ai en sectret js
-
 <br>
+
+**Uitleg en instructies:**
+
+- Zorg ervoor dat je een duidelijke uitleg geeft aan de gebruikers over het concept en de werking van het project.
+- Plaats instructies over de installatie om gebruikers te begeleiden in de werking.
+- Communiceer duidelijk met gebruikers over de beschikbare tijdsloten.
+  <br>
+
+**Samenwerking met de muzikant:**
+
+- Maak goede afspraken met de muzikant over tijd, verwachtingen en inhoud. Leg de werking van de installatie duidelijk uit zodat hij/zij, kan anticiperen en volgen.
+  <br>
+
+**Opname Apparatuur:**
+
+- Zorg dat alle benodigde opnameapparatuur beschikbaar en werkend is.
+- Test de apparatuur van tevoren om technische problemen tijdens de opnames te voorkomen.
+  <br>
+
+**Publiceren op SoundCloud:**
+
+- Vergeet niet om de opnames op SoundCloud te posten.
+- Zorg dat je SoundCloud-account klaar is en goed ingesteld staat voor het delen van de opnames.
+  <br>
+
+**Logboek bijhouden:**
+
+- Houd alle teksten en bijhorende muziekstukken die tijdens het project worden gemaakt goed bij. (Dit helpt om alles later op Soundcloud te plaatsen.)
+  <br>
+
+**API Key aanmaken:**
+
+- Maak een API key aan voor OpenAI en voeg deze toe aan je project.
+- Zorg ervoor dat deze gegevens veilig worden opgeslagen en niet openbaar gedeeld worden.
+  <br>
+
+**Regelmatig Testen:**
+
+- Test het systeem regelmatig, vooral met live muziek, om ervoor te zorgen dat alles naar behoren werkt. Dit helpt bij het identificeren en oplossen van eventuele problemen voordat ze zich voordoen tijdens een echte sessie.
+
+<br><br>
 
 ## Extra's
 
