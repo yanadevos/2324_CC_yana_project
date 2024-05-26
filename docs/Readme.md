@@ -2,7 +2,7 @@
 
 ![Essentia](images/essentia.png)
 
-## Concept
+## <span style="color:#100074">Concept</span>
 
 > Voor dit project had ik een samenwerking met het conservatorium. Toen Ruben zich voorstelde, vertelde hij over hoe graag hij met zijn muziek verhalen verteld en deze overbrengt aan zijn publiek. Dit inspireerde me meteen om het concept van ‘Essentia’ rond te bouwen.
 >
@@ -27,13 +27,13 @@
 
 <br>
 
-## Inhoud
+## <span style="color:#100074">Inhoud</span>
 
 - [Essentia](#essentia)
   - [Concept](#concept)
   - [Inhoud](#inhoud)
   - [Benodigdheden](#benodigdheden)
-  - [Tips en Valkuilen](#tips-en-valkuilen)
+  - [Tips \& valkuilen](#tips--valkuilen)
   - [Extra's](#extras)
   - [Installatie](#installatie)
   - [Code](#code)
@@ -45,7 +45,7 @@
 
 <br><br>
 
-## Benodigdheden
+## <span style="color:#100074">Benodigdheden</span>
 
 - HDMI-kabel
 - Laptop
@@ -55,7 +55,7 @@
 - SoundCloud-account
   <br><br>
 
-## Tips en Valkuilen
+## <span style="color:#100074">Tips & valkuilen</span>
 
 <br>
 
@@ -100,7 +100,7 @@
 
 <br><br>
 
-## Extra's
+## <span style="color:#100074">Extra's</span>
 
 Ik heb stickers en kaartjes ontworpen die bezoekers kunnen meenemen na hun bezoek aan ‘Essentia’. Zo krijgt elke bezoeker een tastbare herinnering aan hun ervaring, waardoor ze deze nooit zullen vergeten en altijd opnieuw kunnen beleven.
 
@@ -138,7 +138,7 @@ Daarnaast heb ik ook affiches ontworpen om de tijdsloten aan te duiden van wanne
 ![Affishe](images/affishes.jpg)
 <br><br><br>
 
-## Installatie
+## <span style="color:#100074">Installatie</span>
 
 Volg deze stappen om het project te installeren en uit te voeren:
 
@@ -149,7 +149,7 @@ Volg deze stappen om het project te installeren en uit te voeren:
 5. npm run dev (in terminal)
    <br><br><br>
 
-## Code
+## <span style="color:#100074">Code</span>
 
 ### HTML
 
@@ -385,7 +385,7 @@ Deze code bevat een sectie die zich bezighoudt met de verwerking van een audiosi
 
    <br><br>
 
-## Opstelling
+## <span style="color:#100074">Opstelling</span>
 
 De opstelling van ‘Essentia’ is heel eenvoudig, de laptop (waar de installatie op runt) zal verbonden worden met de beamer aan de hand van een HDMI kabel. Op deze laptop zullen de gebruikers ook het onderwerp kunnen ingeven.
 
