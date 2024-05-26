@@ -1,6 +1,6 @@
 # Essentia
 
-![Essentia](images/essentia.jpg)
+![Essentia](images/essentia.png)
 
 ## Concept
 
