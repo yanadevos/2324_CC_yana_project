@@ -16,6 +16,8 @@ Nadat de installatie gedraaid heeft, kan je zowel de muziek als de tekst herbele
 
 Kortom het is de bedoeling om aan de hand van tekst, kleur en muziek een verhaal te vertellen en een gevoel weer te geven aan de gebruiker. Zo word de muziek sterker en dieper beleefd en zorgt het voor een betere belevenis.
 
+<br>
+
 **Eerste visualisatie**
 
 ![Eerste visualisatie](images/eerstevisualisatie.jpg)
@@ -43,7 +45,7 @@ Kortom het is de bedoeling om aan de hand van tekst, kleur en muziek een verhaal
     - [Audiosignaalverwerking en Tonale Analyse](#audiosignaalverwerking-en-tonale-analyse)
   - [Opstelling](#opstelling)
 
-<br><br><br>
+<br><br>
 
 ## Benodigdheden
 
@@ -79,15 +81,13 @@ Ik heb stickers en kaartjes ontworpen die bezoekers kunnen meenemen na hun bezoe
 
 <li> <strong>Stickers</strong> </li> <br>
 
-Ik heb de stickers gemaakt in Adobe Illustator. De ‘Essentia’ stickers hebben een gradient die dezelfde kleuren heeft als de visualisatie van de installatie.
+Ik heb de stickers gemaakt in Adobe Illustator. De ‘Essentia’ stickers hebben een gradient die dezelfde kleuren heeft als de visualisatie van de installatie. In het Illustrator-bestand maakt u twee lagen. Een artworklaag en een CutContour (=snijlijn). De snijcontour heeft een 100% magenta kleur. Hierdoor zal de snijmachine weten op welke lijn hij de stickers uit moet snijden.
+
+Daarnaast gebruik ik voor ‘Essentia’ altijd het font, Georgia Pro. En voor ander gebruikte tekst Roboto.
 
 In de sticker gebruik ik specifiek deze 5 kleuren:
 
 -`#2E3192` -`#F6A72B` -`#E75D31` -`#D62190` -`#683092`
-
-Daarnaast gebruik ik voor ‘Essentia’ altijd het font, Georgia Pro. En voor ander gebruikte tekst Roboto.
-
-In het Illustrator-bestand maakt u twee lagen. Een artworklaag en een CutContour (=snijlijn). De snijcontour heeft een 100% magenta kleur. Hierdoor zal de snijmachine weten op welke lijn hij de stickers uit moet snijden.
 
 ![Stickers](images/stickers.jpg)
 
