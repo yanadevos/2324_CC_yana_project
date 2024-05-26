@@ -18,7 +18,7 @@ Kortom het is de bedoeling om aan de hand van tekst, kleur en muziek een verhaal
 
 **Eerste visualisatie**
 
-![Eerste visualisatie](public/images/eerstevisualisatie.jpg)
+![Eerste visualisatie](images/eerstevisualisatie.jpg)
 
 **Eind visualisatie**
 
