@@ -211,7 +211,7 @@ Deze code bevat een sectie die zich bezighoudt met de verwerking van een audiosi
 
 1. **Configuratie van Kleurcodering voor Noten**
 
-   - noteColors: Een object dat specifieke kleuren toewijst aan muziekschalen, waardoor de noten visueel te onderscheiden zijn op basis van hun toon.
+   - **noteColors**: Een object dat specifieke kleuren toewijst aan muziekschalen, waardoor de noten visueel te onderscheiden zijn op basis van hun toon.
 
    ```
    const noteColors = {
@@ -233,7 +233,7 @@ Deze code bevat een sectie die zich bezighoudt met de verwerking van een audiosi
 
 2. **Definiëren van Toonaarden**
 
-   - toonaarden: Een array van objecten die verschillende toonladders beschrijven. Elk object bevat de toonsoort, grondtoon, en de noten die deel uitmaken van de toonladder.
+   - **toonaarden**: Een array van objecten die verschillende toonladders beschrijven. Elk object bevat de toonsoort, grondtoon, en de noten die deel uitmaken van de toonladder.
 
    ```
    const toonaarden = [
@@ -298,7 +298,7 @@ Deze code bevat een sectie die zich bezighoudt met de verwerking van een audiosi
 
    - **draw**: De functie om noten te tekenen op het canvas. De noten worden op een regelmatige afstand (xPosDistance) geplaatst en de hoogte (yPosStart) wordt aangepast op basis van de toonhoogte (note.value).
    - **waveHeight**: Functie om de hoogte van de golf (toonhoogte) te berekenen met enige niet-lineaire schaling.
-   - **drawTextAlongPath**: Tekent tekst langs een pad dat wordt bepaald door de gedetecteerde noten.
+   - **drawTextAlongPath**: Tekent tekst langs een pad dat wordt bepaald door de gedetecteerde noten.<br><br>
 
    ```
    const xPosDistance = 15;
@@ -355,4 +355,3 @@ Aan de uitgang waar de gebruikers weer naar buiten gaan, liggen de kaartjes en d
 
 <li> <strong>Schetsen opstelling</strong> </li>
 <li> <strong>Effectieve opstelling</strong> </li>
-```
