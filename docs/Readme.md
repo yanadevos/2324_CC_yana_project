@@ -18,7 +18,7 @@ Kortom het is de bedoeling om aan de hand van tekst, kleur en muziek een verhaal
 
 **Eerste visualisatie**
 
-(foto van eerste visualisatie)
+![Eerste visualisatie](public/images/eerstevisualisatie.jpg)
 
 **Eind visualisatie**
 
@@ -40,7 +40,7 @@ Kortom het is de bedoeling om aan de hand van tekst, kleur en muziek een verhaal
     - [Audiosignaalverwerking en Tonale Analyse](#audiosignaalverwerking-en-tonale-analyse)
   - [Opstelling](#opstelling)
 
----
+<br><br><br>
 
 ## Benodigdheden
 
@@ -50,6 +50,7 @@ Kortom het is de bedoeling om aan de hand van tekst, kleur en muziek een verhaal
 - Beamer
 - Opnameapparatuur
 - SoundCloud-account
+  <br><br>
 
 ## Tips en Valkuilen
 
@@ -67,11 +68,13 @@ Kortom het is de bedoeling om aan de hand van tekst, kleur en muziek een verhaal
 
 -API key aanmaken voor open ai en sectret js
 
+<br>
+
 ## Extra's
 
 Ik heb stickers en kaartjes ontworpen die bezoekers kunnen meenemen na hun bezoek aan ‘Essentia’. Zo krijgt elke bezoeker een tastbare herinnering aan hun ervaring, waardoor ze deze nooit zullen vergeten en altijd opnieuw kunnen beleven.
 
-<li> <strong>Stickers</strong> </li> <br><br>
+<li> <strong>Stickers</strong> </li> <br>
 
 Ik heb de stickers gemaakt in Adobe Illustator. De ‘Essentia’ stickers hebben een gradient die dezelfde kleuren heeft als de visualisatie van de installatie.
 
@@ -85,7 +88,7 @@ In het Illustrator-bestand maakt u twee lagen. Een artworklaag en een CutContour
 
 (foto van stickers)
 
-<li> <strong>Kaartjes</strong> </li><br><br>
+<li> <strong>Kaartjes</strong> </li><br>
 
 De kaartjes zijn gemaakt met dezelfde kleuren als die van de stickers (kijk hierboven). De QR code op de kaartjes heb ik gecreëerd met deze link van het ‘Essentia’ Soundcloud account.
 
@@ -93,11 +96,12 @@ De kaartjes zijn gemaakt met dezelfde kleuren als die van de stickers (kijk hier
 
 (foto van kaartjes)
 
-<li> <strong>Affishes</strong> </li><br><br>
+<li> <strong>Affishes</strong> </li><br>
 
 Daarnaast heb ik ook affiches ontworpen om de tijdsloten aan te duiden van wanneer de installatie vanstart zou gaan. Ook deze is gemaakt met dezelfde kleuren en dezelfde typo als de stickers en de kaartjes.
 
 (foto van affishes)
+<br><br><br>
 
 ## Installatie
 
@@ -343,6 +347,8 @@ Deze code bevat een sectie die zich bezighoudt met de verwerking van een audiosi
    }
 
    ```
+
+   <br><br>
 
 ## Opstelling
 
