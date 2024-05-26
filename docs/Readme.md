@@ -22,7 +22,10 @@ Kortom het is de bedoeling om aan de hand van tekst, kleur en muziek een verhaal
 
 **Eind visualisatie**
 
-(foto van tweede visualisatie)
+![Eind visualisatie](images/eindvisualisatie.jpg)
+![Eind visualisatie 2](images/eindvisualisatie2.jpg)
+
+<br>
 
 ## Inhoud
 
@@ -86,7 +89,7 @@ Daarnaast gebruik ik voor ‘Essentia’ altijd het font, Georgia Pro. En voor a
 
 In het Illustrator-bestand maakt u twee lagen. Een artworklaag en een CutContour (=snijlijn). De snijcontour heeft een 100% magenta kleur. Hierdoor zal de snijmachine weten op welke lijn hij de stickers uit moet snijden.
 
-(foto van stickers)
+![Stickers](images/stickers.jpg)
 
 <li> <strong>Kaartjes</strong> </li><br>
 
@@ -94,13 +97,14 @@ De kaartjes zijn gemaakt met dezelfde kleuren als die van de stickers (kijk hier
 
 -https://soundcloud.com/user-907091839
 
-(foto van kaartjes)
+![Kaartjes](images/kaartjes.jpg)
+<br>
 
 <li> <strong>Affishes</strong> </li><br>
 
 Daarnaast heb ik ook affiches ontworpen om de tijdsloten aan te duiden van wanneer de installatie vanstart zou gaan. Ook deze is gemaakt met dezelfde kleuren en dezelfde typo als de stickers en de kaartjes.
 
-(foto van affishes)
+![Affishe](images/affishes.jpg)
 <br><br><br>
 
 ## Installatie
@@ -359,4 +363,9 @@ De muzikant staat naast of onder het geprojecteerde beeld, zodat de muziek goed 
 Aan de uitgang waar de gebruikers weer naar buiten gaan, liggen de kaartjes en de stickers zodat ze deze na de demonstratie makkelijk kunnen meenemen.
 
 <li> <strong>Schetsen opstelling</strong> </li>
+
+![Schets opstelling](images/schetsopstelling.jpg)
+
 <li> <strong>Effectieve opstelling</strong> </li>
+
+![Effectieve opstelling](images/effectiefopstelling.jpg)
