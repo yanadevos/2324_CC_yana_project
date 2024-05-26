@@ -71,7 +71,7 @@ Kortom het is de bedoeling om aan de hand van tekst, kleur en muziek een verhaal
 
 Ik heb stickers en kaartjes ontworpen die bezoekers kunnen meenemen na hun bezoek aan ‘Essentia’. Zo krijgt elke bezoeker een tastbare herinnering aan hun ervaring, waardoor ze deze nooit zullen vergeten en altijd opnieuw kunnen beleven.
 
-<li> <strong>Stickers</strong> </li>
+<li> <strong>Stickers</strong> </li> <br><br>
 
 Ik heb de stickers gemaakt in Adobe Illustator. De ‘Essentia’ stickers hebben een gradient die dezelfde kleuren heeft als de visualisatie van de installatie.
 
@@ -85,7 +85,7 @@ In het Illustrator-bestand maakt u twee lagen. Een artworklaag en een CutContour
 
 (foto van stickers)
 
-<li> <strong>Kaartjes</strong> </li>
+<li> <strong>Kaartjes</strong> </li><br><br>
 
 De kaartjes zijn gemaakt met dezelfde kleuren als die van de stickers (kijk hierboven). De QR code op de kaartjes heb ik gecreëerd met deze link van het ‘Essentia’ Soundcloud account.
 
@@ -93,7 +93,7 @@ De kaartjes zijn gemaakt met dezelfde kleuren als die van de stickers (kijk hier
 
 (foto van kaartjes)
 
-<li> <strong>Affishes</strong> </li>
+<li> <strong>Affishes</strong> </li><br><br>
 
 Daarnaast heb ik ook affiches ontworpen om de tijdsloten aan te duiden van wanneer de installatie vanstart zou gaan. Ook deze is gemaakt met dezelfde kleuren en dezelfde typo als de stickers en de kaartjes.
 
@@ -108,12 +108,13 @@ Volg deze stappen om het project te installeren en uit te voeren:
 3. npm install (in terminal)
 4. Voer het project uit
 5. npm run dev (in terminal)
+   <br><br><br>
 
 ## Code
 
 ### HTML
 
-Dit stuk HTML definieert de structuur van de gebruikersinterface. Het bevat een titel, een invoerveld voor het onderwerp, een knop om het proces te starten, en een canvas voor de visualisatie van de muzieknoten.
+Dit stuk HTML definieert de structuur van de gebruikersinterface. Het bevat een titel, een invoerveld voor het onderwerp, een knop om het proces te starten, en een canvas voor de visualisatie van de muzieknoten.<br>
 
 ```
 <!doctype html>
@@ -148,7 +149,7 @@ Dit stuk HTML definieert de structuur van de gebruikersinterface. Het bevat een 
 
 ### Imports
 
-Dit deel van de JavaScript-code initialiseert en importeert de benodigde modules. Het laadt de CSS-stijlen, de Tuner klasse voor het verwerken van audiosignalen, en de OpenAI API voor het genereren van tekst. Ook wordt een timestamp gegenereerd voor het opslaan van de gegenereerde tekst.
+Dit deel van de JavaScript-code initialiseert en importeert de benodigde modules. Het laadt de CSS-stijlen, de Tuner klasse voor het verwerken van audiosignalen, en de OpenAI API voor het genereren van tekst. Ook wordt een timestamp gegenereerd voor het opslaan van de gegenereerde tekst.<br>
 
 ```
 import "./styles/style.css";
@@ -166,7 +167,7 @@ const openai = new OpenAI({
 
 ### Event listeners en Tekstgeneratie
 
-Hier worden event listeners toegevoegd aan de knop en het invoerveld om interactie mogelijk te maken. Wanneer op de knop wordt geklikt, wordt de CSS-klasse 'hidden' toegevoegd aan de begin elementen om ze te verbergen, en de rest van de code uit te voeren. De waarde van het ingevoerde onderwerp wordt opgeslagen in de variabele input. De functie getText() wordt aangeroepen om tekst te genereren op basis van het ingevoerde onderwerp en het gevoel.
+Hier worden event listeners toegevoegd aan de knop en het invoerveld om interactie mogelijk te maken. Wanneer op de knop wordt geklikt, wordt de CSS-klasse 'hidden' toegevoegd aan de begin elementen om ze te verbergen, en de rest van de code uit te voeren. De waarde van het ingevoerde onderwerp wordt opgeslagen in de variabele input. De functie getText() wordt aangeroepen om tekst te genereren op basis van het ingevoerde onderwerp en het gevoel.<br>
 
 ```
 document.getElementById("recordButton").addEventListener("click", function () {
@@ -211,7 +212,7 @@ Deze code bevat een sectie die zich bezighoudt met de verwerking van een audiosi
 
 1. **Configuratie van Kleurcodering voor Noten**
 
-   - **noteColors**: Een object dat specifieke kleuren toewijst aan muziekschalen, waardoor de noten visueel te onderscheiden zijn op basis van hun toon.
+   - **noteColors**: Een object dat specifieke kleuren toewijst aan muziekschalen, waardoor de noten visueel te onderscheiden zijn op basis van hun toon.<br><br>
 
    ```
    const noteColors = {
@@ -233,7 +234,7 @@ Deze code bevat een sectie die zich bezighoudt met de verwerking van een audiosi
 
 2. **Definiëren van Toonaarden**
 
-   - **toonaarden**: Een array van objecten die verschillende toonladders beschrijven. Elk object bevat de toonsoort, grondtoon, en de noten die deel uitmaken van de toonladder.
+   - **toonaarden**: Een array van objecten die verschillende toonladders beschrijven. Elk object bevat de toonsoort, grondtoon, en de noten die deel uitmaken van de toonladder.<br><br>
 
    ```
    const toonaarden = [
@@ -247,7 +248,7 @@ Deze code bevat een sectie die zich bezighoudt met de verwerking van een audiosi
 3. **Initialiseren van de Tuner**
 
    - **tuner**: Een instantie van de Tuner klasse, geïnitialiseerd op een standaard A4-frequentie van 440 Hz.
-   - **lastNote**, **maxNotesVisual**, **maxNotes**, **notes**, **differentNotes**, **frameRate**, **lastDraw**: Variabelen voor het bijhouden van gedetecteerde noten en hun weergave in de visualisatie.
+   - **lastNote**, **maxNotesVisual**, **maxNotes**, **notes**, **differentNotes**, **frameRate**, **lastDraw**: Variabelen voor het bijhouden van gedetecteerde noten en hun weergave in de visualisatie.<br><br>
 
    ```
     const tuner = new Tuner(440);
@@ -264,7 +265,7 @@ Deze code bevat een sectie die zich bezighoudt met de verwerking van een audiosi
 4. **Detecteren van Noten**
 
    - **tuner.onNoteDetected**: Een callbackfunctie die wordt aangeroepen wanneer een nieuwe noot wordt gedetecteerd. De noot wordt toegevoegd aan de notes array voor visualisatie en aan differentNotes voor verdere analyse.
-   - **lastDraw**: Houdt bij wanneer de laatste tekening is gemaakt om de visualisatiesnelheid te controleren op basis van de frame rate.
+   - **lastDraw**: Houdt bij wanneer de laatste tekening is gemaakt om de visualisatiesnelheid te controleren op basis van de frame rate.<br><br>
 
    ```
    tuner.onNoteDetected = function (note) {
@@ -342,8 +343,6 @@ Deze code bevat een sectie die zich bezighoudt met de verwerking van een audiosi
    }
 
    ```
-
-   ²
 
 ## Opstelling
 
