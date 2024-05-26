@@ -89,13 +89,19 @@ In de sticker gebruik ik specifiek deze 5 kleuren:
 
 -`#2E3192` -`#F6A72B` -`#E75D31` -`#D62190` -`#683092`
 
+<br>
+
 ![Stickers](images/stickers.jpg)
+
+<br>
 
 <li> <strong>Kaartjes</strong> </li><br>
 
 De kaartjes zijn gemaakt met dezelfde kleuren als die van de stickers (kijk hierboven). De QR code op de kaartjes heb ik gecreëerd met deze link van het ‘Essentia’ Soundcloud account.
 
 -https://soundcloud.com/user-907091839
+
+<br>
 
 ![Kaartjes](images/kaartjes.jpg)
 <br>
@@ -362,10 +368,12 @@ De muzikant staat naast of onder het geprojecteerde beeld, zodat de muziek goed 
 
 Aan de uitgang waar de gebruikers weer naar buiten gaan, liggen de kaartjes en de stickers zodat ze deze na de demonstratie makkelijk kunnen meenemen.
 
-<li> <strong>Schetsen opstelling</strong> </li>
+**Schetsen opstelling**
+<br>
 
 ![Schets opstelling](images/schetsopstelling.jpg)
 
-<li> <strong>Effectieve opstelling</strong> </li>
+**Effectieve opstelling**
+<br>
 
 ![Effectieve opstelling](images/effectiefopstelling.jpg)
