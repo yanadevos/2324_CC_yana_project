@@ -2,7 +2,7 @@
 
 ![Essentia](images/essentia.png)
 
-## <span style="color:#100074">Concept</span>
+## Concept
 
 > Voor dit project had ik een samenwerking met het conservatorium. Toen Ruben zich voorstelde, vertelde hij over hoe graag hij met zijn muziek verhalen verteld en deze overbrengt aan zijn publiek. Dit inspireerde me meteen om het concept van ‘Essentia’ rond te bouwen.
 >
@@ -27,13 +27,13 @@
 
 <br>
 
-## <span style="color:#100074">Inhoud</span>
+## Inhoud
 
 - [Essentia](#essentia)
   - [Concept](#concept)
   - [Inhoud](#inhoud)
   - [Benodigdheden](#benodigdheden)
-  - [Tips \& valkuilen](#tips--valkuilen)
+  - [Tips en Valkuilen](#tips-en-valkuilen)
   - [Extra's](#extras)
   - [Installatie](#installatie)
   - [Code](#code)
@@ -45,7 +45,7 @@
 
 <br><br>
 
-## <span style="color:#100074">Benodigdheden</span>
+## Benodigdheden
 
 - HDMI-kabel
 - Laptop
@@ -55,7 +55,7 @@
 - SoundCloud-account
   <br><br>
 
-## <span style="color:#100074">Tips & valkuilen</span>
+## Tips en Valkuilen
 
 <br>
 
@@ -100,7 +100,7 @@
 
 <br><br>
 
-## <span style="color:#100074">Extra's</span>
+## Extra's
 
 Ik heb stickers en kaartjes ontworpen die bezoekers kunnen meenemen na hun bezoek aan ‘Essentia’. Zo krijgt elke bezoeker een tastbare herinnering aan hun ervaring, waardoor ze deze nooit zullen vergeten en altijd opnieuw kunnen beleven.
 
@@ -138,7 +138,7 @@ Daarnaast heb ik ook affiches ontworpen om de tijdsloten aan te duiden van wanne
 ![Affishe](images/affishes.jpg)
 <br><br><br>
 
-## <span style="color:#100074">Installatie</span>
+## Installatie
 
 Volg deze stappen om het project te installeren en uit te voeren:
 
@@ -149,7 +149,7 @@ Volg deze stappen om het project te installeren en uit te voeren:
 5. npm run dev (in terminal)
    <br><br><br>
 
-## <span style="color:#100074">Code</span>
+## Code
 
 ### HTML
 
@@ -247,7 +247,7 @@ async function getText() {
 
 ### Audiosignaalverwerking en Tonale Analyse
 
-Deze code bevat een sectie die zich bezighoudt met de verwerking van een audiosignaal en de analyse van de toonhoogte. Hier is een uitgebreide uitleg van de belangrijkste onderdelen van de code:
+Deze sectie houd zich bezig met de verwerking van een audiosignaal en de analyse van de toonhoogte. Hier is een uitgebreide uitleg van de belangrijkste onderdelen van de code:
 
 1. **Configuratie van Kleurcodering voor Noten**
 
@@ -385,7 +385,7 @@ Deze code bevat een sectie die zich bezighoudt met de verwerking van een audiosi
 
    <br><br>
 
-## <span style="color:#100074">Opstelling</span>
+## Opstelling
 
 De opstelling van ‘Essentia’ is heel eenvoudig, de laptop (waar de installatie op runt) zal verbonden worden met de beamer aan de hand van een HDMI kabel. Op deze laptop zullen de gebruikers ook het onderwerp kunnen ingeven.
 
