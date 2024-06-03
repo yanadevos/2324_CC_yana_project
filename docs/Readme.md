@@ -397,7 +397,7 @@ De opstelling van ‘Essentia’ is heel eenvoudig, de laptop (waar de installat
 De muzikant staat naast of onder het geprojecteerde beeld, zodat de muziek goed door de microfoon wordt opgenomen. Dit zorgt er ook voor dat, wanneer er foto’s en video’s van de installatie worden gemaakt, de muzikant duidelijk zichtbaar is en het concept goed overkomt.
 
 Aan de uitgang waar de gebruikers weer naar buiten gaan, liggen de kaartjes en de stickers zodat ze deze na de demonstratie makkelijk kunnen meenemen.
-<br>
+<br><br>
 
 **Schetsen opstelling**
 <br>
