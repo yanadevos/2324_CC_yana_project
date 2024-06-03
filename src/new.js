@@ -31,7 +31,7 @@ let input = "";
 let lyrics = "";
 
 async function getText() {
-  console.log("hallooooo");
+  // console.log("hallooooo");
 
   console.log(input, feeling);
   if (input && feeling) {

@@ -27,10 +27,15 @@
 
 <br>
 
+### Video
+
+<iframe width="560" height="315" src="https://youtu.be/Lee5fS-ltMs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Inhoud
 
 - [Essentia](#essentia)
   - [Concept](#concept)
+    - [Video](#video)
   - [Inhoud](#inhoud)
   - [Benodigdheden](#benodigdheden)
   - [Tips en Valkuilen](#tips-en-valkuilen)
