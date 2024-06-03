@@ -27,7 +27,7 @@
 
 <br>
 
-### Video
+### Demo video
 
 [![Essentia Demo](https://img.youtube.com/vi/Lee5fS-ltMs/0.jpg)](https://youtu.be/Lee5fS-ltMs)
 
@@ -35,7 +35,7 @@
 
 - [Essentia](#essentia)
   - [Concept](#concept)
-    - [Video](#video)
+    - [Demo video](#demo-video)
   - [Inhoud](#inhoud)
   - [Benodigdheden](#benodigdheden)
   - [Tips en Valkuilen](#tips-en-valkuilen)
