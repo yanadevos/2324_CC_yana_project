@@ -29,7 +29,7 @@
 
 ### Video
 
-<iframe width="560" height="315" src="https://youtu.be/Lee5fS-ltMs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Essentia Demo](https://img.youtube.com/vi/Lee5fS-ltMs/0.jpg)](https://youtu.be/Lee5fS-ltMs)
 
 ## Inhoud
 
