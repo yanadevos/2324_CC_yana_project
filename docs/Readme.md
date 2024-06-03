@@ -30,6 +30,7 @@
 ### Demo video
 
 [![Essentia Demo](https://img.youtube.com/vi/Lee5fS-ltMs/0.jpg)](https://youtu.be/Lee5fS-ltMs)
+<br><br>
 
 ## Inhoud
 
@@ -148,17 +149,16 @@ Daarnaast heb ik ook affiches ontworpen om de tijdsloten aan te duiden van wanne
 Volg deze stappen om het project te installeren en uit te voeren:
 
 1. Download of kloon het project lokaal
-2. Installeer node.js in het project
+2. Installeer node.js
 3. npm install (in terminal)
-4. Voer het project uit
-5. npm run dev (in terminal)
+4. npm run dev (in terminal)
    <br><br><br>
 
 ## Code
 
 ### HTML
 
-Dit stuk HTML definieert de structuur van de gebruikersinterface. Het bevat een titel, een invoerveld voor het onderwerp, een knop om het proces te starten, en een canvas voor de visualisatie van de muzieknoten.<br>
+Dit stuk HTML definieert de structuur van de gebruikersinterface. Het bevat een titel, een invoerveld voor het onderwerp, een knop om het proces te starten, en een canvas voor de visualisatie van de muziek.<br>
 
 ```
 <!doctype html>
@@ -397,6 +397,7 @@ De opstelling van ‘Essentia’ is heel eenvoudig, de laptop (waar de installat
 De muzikant staat naast of onder het geprojecteerde beeld, zodat de muziek goed door de microfoon wordt opgenomen. Dit zorgt er ook voor dat, wanneer er foto’s en video’s van de installatie worden gemaakt, de muzikant duidelijk zichtbaar is en het concept goed overkomt.
 
 Aan de uitgang waar de gebruikers weer naar buiten gaan, liggen de kaartjes en de stickers zodat ze deze na de demonstratie makkelijk kunnen meenemen.
+<br>
 
 **Schetsen opstelling**
 <br>
